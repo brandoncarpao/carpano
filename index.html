@@ -1014,7 +1014,7 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Ondas doradas elegantes: movimiento continuo y respuesta sutil al cursor.
+  // Diez ondas doradas largas: movimiento continuo y respuesta sutil al cursor.
   {
     const waveSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     waveSvg.setAttribute('class', 'carpano-cursor-waves');
@@ -1023,14 +1023,15 @@
     waveSvg.setAttribute('aria-hidden', 'true');
     waveSvg.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;opacity:1;display:block;overflow:hidden;';
     const wavePaths = [];
-    for (let i = 0; i < 5; i++) {
+    const waveOpacities = [0.08, 0.11, 0.14, 0.18, 0.23, 0.30, 0.23, 0.18, 0.14, 0.10];
+    for (let i = 0; i < 10; i++) {
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('fill', 'none');
       path.setAttribute('stroke', '#C5A059');
-      path.setAttribute('stroke-width', i === 2 ? '1.15' : '0.85');
+      path.setAttribute('stroke-width', i === 5 ? '1.15' : '0.8');
       path.setAttribute('stroke-linecap', 'round');
       path.setAttribute('stroke-linejoin', 'round');
-      path.style.opacity = [0.12, 0.19, 0.32, 0.19, 0.12][i];
+      path.style.opacity = waveOpacities[i];
       waveSvg.appendChild(path);
       wavePaths.push(path);
     }
@@ -1056,17 +1057,19 @@
       waveSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
       wavePaths.forEach((path, index) => {
-        const layer = index - 2;
-        const baseY = height * 0.5 + layer * 42;
-        const amplitude = 112 + Math.abs(layer) * 20;
-        const wavelength = 0.0058 + index * 0.0003;
-        const cursorOffsetX = finePointer ? (smoothX - width * 0.5) * 0.075 : 0;
-        const cursorOffsetY = finePointer ? (smoothY - height * 0.5) * 0.11 : 0;
+        const layer = index - 4.5;
+        const baseY = height * 0.5 + layer * 25;
+        const amplitude = 142 + Math.abs(layer) * 9;
+        // Long, broad curves: lower frequency means fewer oscillations across the screen.
+        const wavelength = 0.0035 + index * 0.00008;
+        const cursorOffsetX = finePointer ? (smoothX - width * 0.5) * 0.055 : 0;
+        const cursorOffsetY = finePointer ? (smoothY - height * 0.5) * 0.075 : 0;
         const points = [];
         for (let x = -30; x <= width + 30; x += 18) {
           const relativeX = x - width * 0.5 - cursorOffsetX;
-          const drift = Math.sin(relativeX * 0.0022 + phase * 0.65 + layer * 0.7) * 17;
-          const y = baseY + cursorOffsetY + Math.sin(relativeX * wavelength + phase * (index % 2 ? -1 : 1) + layer * 0.48) * amplitude + drift;
+          const direction = index % 2 ? -1 : 1;
+          const drift = Math.sin(relativeX * 0.0015 + phase * 0.55 + layer * 0.45) * 13;
+          const y = baseY + cursorOffsetY + Math.sin(relativeX * wavelength + phase * direction + layer * 0.28) * amplitude + drift;
           points.push([x, y]);
         }
         let d = `M ${points[0][0]} ${points[0][1]}`;
