@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
   <title>Carpaño — Catálogo de Productos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -187,7 +189,7 @@
     .products-section { background: var(--color-cream); }
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
       gap: 2.5rem;
     }
     .product-card {
@@ -204,7 +206,7 @@
     }
     .product-images {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 2px;
       background: #EAEAEA;
     }
@@ -409,11 +411,50 @@
     }
     .nav-link:hover { color: var(--color-black); }
     .nav-link:hover::after { width: 100%; }
+
+    /* Destello dorado que acompaña el cursor: sutil, elegante y no intrusivo */
+    .carpano-cursor-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      background: radial-gradient(circle,
+        rgba(197, 160, 89, 0.19) 0%,
+        rgba(197, 160, 89, 0.09) 28%,
+        rgba(197, 160, 89, 0.035) 48%,
+        rgba(197, 160, 89, 0) 72%);
+      transform: translate3d(-200px, -200px, 0) translate(-50%, -50%);
+      transition: opacity 220ms ease;
+      mix-blend-mode: multiply;
+      will-change: transform;
+    }
+    .carpano-cursor-glow::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(197, 160, 89, 0.75);
+      box-shadow: 0 0 10px 3px rgba(197, 160, 89, 0.22);
+      transform: translate(-50%, -50%);
+    }
+    .carpano-cursor-glow.is-visible { opacity: 1; }
+    @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+      .carpano-cursor-glow { display: none !important; }
+    }
+
     @media (max-width: 768px) {
       .hero-logo { width: 140px; height: 140px; }
       .hero-logo svg { width: 90px; }
       .section { padding: 4rem 1.5rem; }
-      .products-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .products-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1.25rem; }
       .contact-grid { grid-template-columns: 1fr; }
       .nav-links { gap: 1.2rem; }
       .hero-cta-group { flex-direction: column; width: 100%; }
@@ -442,8 +483,8 @@
 </nav>
 
 <section class="hero" id="inicio">
-  <div class="hero-logo" style="border: none; box-shadow: none; background: transparent;">
-  <img src="logo/C_sin borde.png" alt="Logo Carpaño" style="width: 200px; height: 200px; object-fit: contain; border-radius: 0;">
+  <div class="hero-logo" style="border: none; box-shadow: none; background: transparent; border-radius: 50%; overflow: hidden;">
+  <img src="logo/C_sin borde.png" alt="Logo Carpaño" width="180" height="180" style="width: 180px; height: 180px; object-fit: contain; border-radius: 50%; clip-path: circle(50%);">
   </div>
   <h1 class="hero-title">Catálogo de Productos</h1>
   <p class="hero-subtitle">Joyería con distinción y estilo</p>
@@ -466,45 +507,441 @@
       <div class="section-divider"></div>
     </div>
     <div class="products-grid">
-      <div class="product-card fade-in">
+      <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
-            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&h=400&fit=crop&q=80" alt="Anillo de Calavera Grande">
-          </div>
-          <div class="product-img">
-            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80" alt="Anillo de Calavera Grande - Vista alterna">
+            <img src="assets/productos/producto-01.jpg" alt="Fotografía del producto 01" loading="lazy" decoding="async" width="600" height="600">
           </div>
         </div>
         <div class="product-info">
-          <h3 class="product-name">Anillo de Calavera Grande</h3>
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 01</h3>
           <div class="product-meta">
-            <p class="product-meta-item">Tallas: <span>10</span></p>
-            <p class="product-meta-item">Disponibles: <span>1 unidad</span></p>
+            <p class="product-meta-item">Precio: <span>$0.99</span></p>
           </div>
-          <span class="product-badge">Edición Limitada</span>
         </div>
-      </div>
-      <div class="product-card fade-in">
+      </article>
+      <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
-            <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&h=400&fit=crop&q=80" alt="Anillo Abridor de Botellas">
-          </div>
-          <div class="product-img">
-            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop&q=80" alt="Anillo Abridor de Botellas - Vista alterna">
+            <img src="assets/productos/producto-02.jpg" alt="Fotografía del producto 02" loading="lazy" decoding="async" width="600" height="600">
           </div>
         </div>
         <div class="product-info">
-          <h3 class="product-name">Anillo Abridor de Botellas</h3>
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 02</h3>
           <div class="product-meta">
-            <p class="product-meta-item">Tallas: <span>9, 10</span></p>
-            <p class="product-meta-item">Disponibles: <span>5 unidades</span></p>
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
           </div>
-          <span class="product-badge">En Stock</span>
         </div>
-      </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-03.jpg" alt="Fotografía del producto 03" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 03</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-04.jpg" alt="Fotografía del producto 04" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 04</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-05.jpg" alt="Fotografía del producto 05" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 05</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-06.jpg" alt="Fotografía del producto 06" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 06</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-07.jpg" alt="Fotografía del producto 07" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 07</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$12.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-08.jpg" alt="Fotografía del producto 08" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 08</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-09.jpg" alt="Fotografía del producto 09" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 09</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-10.jpg" alt="Fotografía del producto 10" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 10</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-11.jpg" alt="Fotografía del producto 11" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 11</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-12.jpg" alt="Fotografía del producto 12" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 12</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-13.jpg" alt="Fotografía del producto 13" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 13</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-14.jpg" alt="Fotografía del producto 14" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 14</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-15.jpg" alt="Fotografía del producto 15" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 15</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-16.jpg" alt="Fotografía del producto 16" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 16</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-17.jpg" alt="Fotografía del producto 17" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 17</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$12.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-18.jpg" alt="Fotografía del producto 18" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 18</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-19.jpg" alt="Fotografía del producto 19" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 19</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$14.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-20.jpg" alt="Fotografía del producto 20" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 20</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$14.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-21.jpg" alt="Fotografía del producto 21" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 21</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$14.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-22.jpg" alt="Fotografía del producto 22" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 22</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-23.jpg" alt="Fotografía del producto 23" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 23</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$12.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-24.jpg" alt="Fotografía del producto 24" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 24</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$12.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-25.jpg" alt="Fotografía del producto 25" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 25</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$12.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-26.jpg" alt="Fotografía del producto 26" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 26</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$16.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-27.jpg" alt="Fotografía del producto 27" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 27</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-28.jpg" alt="Fotografía del producto 28" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 28</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$13.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-29.jpg" alt="Fotografía del producto 29" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 29</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$9.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-30.jpg" alt="Fotografía del producto 30" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 30</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$15.99</span></p>
+          </div>
+        </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-31.jpg" alt="Fotografía del producto 31" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 31</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$8.99</span></p>
+          </div>
+        </div>
+      </article>
     </div>
-  </div>
-</section>
 
 <section class="contact-section" id="contacto">
   <div class="section">
@@ -521,7 +958,7 @@
           </svg>
         </div>
         <p class="contact-label">Teléfono / WhatsApp</p>
-        <a href="https://wa.me/50373409481" class="contact-value" target="_blank">7340 9481</a>
+        <a href="https://wa.me/50373409481" class="contact-value" target="_blank" rel="noopener noreferrer">7340 9481</a>
       </div>
       <div class="contact-item fade-in">
         <div class="contact-icon">
@@ -576,6 +1013,40 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Destello dorado siguiendo el cursor en dispositivos con ratón.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const cursorGlow = document.createElement('div');
+    cursorGlow.className = 'carpano-cursor-glow';
+    cursorGlow.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(cursorGlow);
+
+    let cursorFrame = 0;
+    let cursorX = -200;
+    let cursorY = -200;
+
+    window.addEventListener('pointermove', (event) => {
+      cursorX = event.clientX;
+      cursorY = event.clientY;
+      if (!cursorFrame) {
+        cursorFrame = window.requestAnimationFrame(() => {
+          cursorGlow.style.transform =
+            `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+          cursorGlow.classList.add('is-visible');
+          cursorFrame = 0;
+        });
+      }
+    }, { passive: true });
+
+    document.documentElement.addEventListener('pointerleave', () => {
+      cursorGlow.classList.remove('is-visible');
+    });
+    document.documentElement.addEventListener('pointerenter', () => {
+      cursorGlow.classList.add('is-visible');
+    });
+  }
+
 </script>
 
 </body>
