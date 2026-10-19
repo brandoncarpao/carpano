@@ -39,7 +39,9 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      background: rgba(248, 245, 240, 0.86);
+      overflow: hidden;
+      isolation: isolate;
+      background: rgba(248, 245, 240, 0.72);
       padding: 2rem;
     }
     .hero-logo {
@@ -427,11 +429,11 @@
 
     /* Fondo de ondas doradas: siempre visible, continuo y detrás del contenido. */
     .carpano-cursor-waves {
-      position: fixed !important;
+      position: absolute !important;
       inset: 0 !important;
       display: block !important;
-      width: 100vw !important;
-      height: 100vh !important;
+      width: 100% !important;
+      height: 100% !important;
       pointer-events: none !important;
       z-index: 0 !important;
       opacity: 1 !important;
@@ -441,7 +443,7 @@
     .carpano-cursor-waves path {
       fill: none !important;
       stroke: #C5A059 !important;
-      stroke-width: 1.7 !important;
+      stroke-width: 1.8 !important;
       stroke-linecap: round;
       stroke-linejoin: round;
       vector-effect: non-scaling-stroke;
@@ -1014,28 +1016,30 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Diez ondas doradas largas: movimiento continuo y respuesta sutil al cursor.
+  // Diez ondas doradas en la portada: parallax suave al desplazarse y movimiento continuo.
   {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
     const waveSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     waveSvg.setAttribute('class', 'carpano-cursor-waves');
     waveSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
     waveSvg.setAttribute('preserveAspectRatio', 'none');
     waveSvg.setAttribute('aria-hidden', 'true');
-    waveSvg.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;opacity:1;display:block;overflow:hidden;';
+    waveSvg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:1;display:block;overflow:hidden;';
     const wavePaths = [];
-    const waveOpacities = [0.08, 0.11, 0.14, 0.18, 0.23, 0.30, 0.23, 0.18, 0.14, 0.10];
+    const waveOpacities = [0.14, 0.18, 0.22, 0.27, 0.32, 0.40, 0.32, 0.27, 0.22, 0.16];
     for (let i = 0; i < 10; i++) {
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('fill', 'none');
       path.setAttribute('stroke', '#C5A059');
-      path.setAttribute('stroke-width', i === 5 ? '1.15' : '0.8');
+      path.setAttribute('stroke-width', i === 5 ? '1.5' : '1.1');
       path.setAttribute('stroke-linecap', 'round');
       path.setAttribute('stroke-linejoin', 'round');
       path.style.opacity = waveOpacities[i];
       waveSvg.appendChild(path);
       wavePaths.push(path);
     }
-    document.body.appendChild(waveSvg);
+    hero.appendChild(waveSvg);
 
     let targetX = window.innerWidth * 0.5;
     let targetY = window.innerHeight * 0.5;
@@ -1045,10 +1049,16 @@
     let lastTime = 0;
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const updateParallax = () => {
+      // La portada conserva las ondas dentro de sus límites; solo compensan un poco el scroll.
+      const rect = hero.getBoundingClientRect();
+      const offset = Math.max(-36, Math.min(36, -rect.top * 0.07));
+      waveSvg.style.transform = `translate3d(0, ${offset}px, 0)`;
+    };
 
     const drawWaves = (time = 0) => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+      const width = hero.clientWidth || window.innerWidth;
+      const height = hero.clientHeight || window.innerHeight;
       const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
       lastTime = time;
       if (!reduceMotion) phase += delta * 0.42;
@@ -1060,10 +1070,9 @@
         const layer = index - 4.5;
         const baseY = height * 0.5 + layer * 25;
         const amplitude = 142 + Math.abs(layer) * 9;
-        // Long, broad curves: lower frequency means fewer oscillations across the screen.
         const wavelength = 0.0035 + index * 0.00008;
-        const cursorOffsetX = finePointer ? (smoothX - width * 0.5) * 0.055 : 0;
-        const cursorOffsetY = finePointer ? (smoothY - height * 0.5) * 0.075 : 0;
+        const cursorOffsetX = finePointer ? (smoothX - window.innerWidth * 0.5) * 0.055 : 0;
+        const cursorOffsetY = finePointer ? (smoothY - window.innerHeight * 0.5) * 0.075 : 0;
         const points = [];
         for (let x = -30; x <= width + 30; x += 18) {
           const relativeX = x - width * 0.5 - cursorOffsetX;
@@ -1091,10 +1100,13 @@
         targetY = event.clientY;
       }, { passive: true });
     }
+    window.addEventListener('scroll', updateParallax, { passive: true });
     window.addEventListener('resize', () => {
       targetX = Math.min(targetX, window.innerWidth);
       targetY = Math.min(targetY, window.innerHeight);
+      updateParallax();
     }, { passive: true });
+    updateParallax();
     drawWaves();
   }
 
