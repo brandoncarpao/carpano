@@ -1014,7 +1014,7 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Ondas de fondo elegantes: cinco líneas fijas que solo se orientan hacia el cursor.
+  // Ondas doradas elegantes: movimiento continuo y respuesta sutil al cursor.
   {
     const waveSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     waveSvg.setAttribute('class', 'carpano-cursor-waves');
@@ -1036,36 +1036,37 @@
     }
     document.body.appendChild(waveSvg);
 
-    let pointerX = window.innerWidth * 0.5;
-    let pointerY = window.innerHeight * 0.5;
-    let targetX = pointerX;
-    let targetY = pointerY;
-    let smoothX = pointerX;
-    let smoothY = pointerY;
+    let targetX = window.innerWidth * 0.5;
+    let targetY = window.innerHeight * 0.5;
+    let smoothX = targetX;
+    let smoothY = targetY;
+    let phase = 0;
+    let lastTime = 0;
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const drawWaves = () => {
+    const drawWaves = (time = 0) => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      smoothX += (targetX - smoothX) * 0.075;
-      smoothY += (targetY - smoothY) * 0.075;
+      const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
+      lastTime = time;
+      if (!reduceMotion) phase += delta * 0.42;
+      smoothX += (targetX - smoothX) * 0.045;
+      smoothY += (targetY - smoothY) * 0.045;
       waveSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
       wavePaths.forEach((path, index) => {
         const layer = index - 2;
-        const baseY = height * 0.5 + layer * 32;
-        const amplitude = 66 + Math.abs(layer) * 8;
-        const wavelength = 0.0068 + index * 0.00035;
-        const cursorOffsetX = (smoothX - width * 0.5) * 0.13;
-        const cursorOffsetY = (smoothY - height * 0.5) * 0.22;
+        const baseY = height * 0.5 + layer * 42;
+        const amplitude = 112 + Math.abs(layer) * 20;
+        const wavelength = 0.0058 + index * 0.0003;
+        const cursorOffsetX = finePointer ? (smoothX - width * 0.5) * 0.075 : 0;
+        const cursorOffsetY = finePointer ? (smoothY - height * 0.5) * 0.11 : 0;
         const points = [];
         for (let x = -30; x <= width + 30; x += 18) {
           const relativeX = x - width * 0.5 - cursorOffsetX;
-          const cursorFocus = finePointer
-            ? Math.exp(-Math.pow((x - smoothX) / Math.max(width * 0.24, 180), 2))
-            : 0;
-          const gentleBend = cursorFocus * cursorOffsetY * 0.32;
-          const y = baseY + cursorOffsetY + Math.sin(relativeX * wavelength + layer * 0.48) * amplitude + gentleBend;
+          const drift = Math.sin(relativeX * 0.0022 + phase * 0.65 + layer * 0.7) * 17;
+          const y = baseY + cursorOffsetY + Math.sin(relativeX * wavelength + phase * (index % 2 ? -1 : 1) + layer * 0.48) * amplitude + drift;
           points.push([x, y]);
         }
         let d = `M ${points[0][0]} ${points[0][1]}`;
@@ -1078,7 +1079,7 @@
         d += ` T ${last[0]} ${last[1]}`;
         path.setAttribute('d', d);
       });
-      window.requestAnimationFrame(drawWaves);
+      if (!reduceMotion) window.requestAnimationFrame(drawWaves);
     };
 
     if (finePointer) {
