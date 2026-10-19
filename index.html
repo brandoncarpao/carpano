@@ -1019,7 +1019,7 @@
   // Diez ondas doradas en la portada: parallax suave al desplazarse y movimiento continuo.
   {
     const hero = document.querySelector('.hero');
-    if (!hero) return;
+    if (!hero) { console.warn('No se encontró la portada para las ondas de Carpaño.'); }
     const waveSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     waveSvg.setAttribute('class', 'carpano-cursor-waves');
     waveSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
