@@ -1056,17 +1056,18 @@
       waveSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
       wavePaths.forEach((path, index) => {
-        const centerY = height * (0.48 + (index - 1) * 0.09) + (pointerY - height * 0.5) * 0.13;
-        const amplitude = 30 + index * 13;
-        const wavelength = 0.008 + index * 0.002;
+        // Las ondas se anclan al cursor en X y Y, con desplazamiento suave y mayor amplitud.
+        const centerY = pointerY + (index - 1) * 48;
+        const amplitude = 88 + index * 34;
+        const wavelength = 0.009 + index * 0.002;
         const points = [];
-        for (let x = -40; x <= width + 40; x += 20) {
-          const distance = Math.abs(x - pointerX) / Math.max(width * 0.3, 180);
+        for (let x = -40; x <= width + 40; x += 16) {
+          const distance = Math.abs(x - pointerX) / Math.max(width * 0.22, 150);
           const cursorInfluence = finePointer ? Math.exp(-distance * distance) : 0;
-          const cursorBend = (pointerY - height * 0.5) * 0.18 * cursorInfluence;
+          const cursorRipple = cursorInfluence * Math.sin((x - pointerX) * 0.022 + phase * 1.4) * 42;
           const y = centerY
-            + Math.sin(x * wavelength + phase * (index % 2 ? -1 : 1) + index * 1.6) * amplitude
-            + cursorBend;
+            + Math.sin((x - pointerX) * wavelength + phase * (index % 2 ? -1 : 1) + index * 1.25) * amplitude
+            + cursorRipple;
           points.push([x, y]);
         }
         let d = `M ${points[0][0]} ${points[0][1]}`;
