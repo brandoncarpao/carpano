@@ -442,20 +442,17 @@
     .carpano-cursor-waves path {
       fill: none;
       stroke: var(--color-gold, #C5A059);
-      stroke-width: 1.15;
+      stroke-width: 1.25;
       stroke-linecap: round;
+      stroke-linejoin: round;
       vector-effect: non-scaling-stroke;
-      animation: carpano-wave-drift 9s ease-in-out infinite alternate;
     }
-    .carpano-cursor-waves path:nth-child(1) { opacity: .22; animation-duration: 8s; }
-    .carpano-cursor-waves path:nth-child(2) { opacity: .14; animation-duration: 11s; animation-delay: -3s; }
-    .carpano-cursor-waves path:nth-child(3) { opacity: .09; animation-duration: 14s; animation-delay: -5s; }
-    @keyframes carpano-wave-drift {
-      0% { stroke-dasharray: 4 10; stroke-dashoffset: 0; }
-      100% { stroke-dasharray: 12 7; stroke-dashoffset: -90; }
-    }
-    /* Mantiene las ondas detrás del contenido sin bloquear clics ni navegación. */
-    body > *:not(.carpano-cursor-waves) { position: relative; z-index: 1; }
+    .carpano-cursor-waves path:nth-child(1) { opacity: .25; }
+    .carpano-cursor-waves path:nth-child(2) { opacity: .17; }
+    .carpano-cursor-waves path:nth-child(3) { opacity: .11; }
+    /* Las ondas quedan detrás del contenido, pero nunca por encima del encabezado fijo. */
+    body > *:not(.carpano-cursor-waves):not(.nav) { position: relative; z-index: 1; }
+    .nav { z-index: 100; }
     @media (prefers-reduced-motion: reduce) {
       .carpano-cursor-waves path { animation: none !important; }
     }
@@ -1062,12 +1059,12 @@
       wavePaths.forEach((path, index) => {
         const offset = (index - 1) * 24;
         const centerY = Math.max(45, Math.min(height - 45, pointerY + offset));
-        const amplitude = 26 + index * 9;
-        const wavelength = 0.006 + index * 0.001;
+        const amplitude = 40 + index * 12;
+        const wavelength = 0.013 + index * 0.002;
         const points = [];
         for (let x = -40; x <= width + 40; x += 32) {
           const influence = Math.exp(-Math.pow((x - pointerX) / (width * 0.22 + 120), 2));
-          const cursorPull = (pointerY - height * 0.5) * 0.12 * influence;
+          const cursorPull = (pointerY - height * 0.5) * 0.18 * influence;
           const y = centerY
             + Math.sin(x * wavelength + phase * (index % 2 ? -1 : 1) + index * 1.7) * amplitude
             + cursorPull;
