@@ -189,8 +189,9 @@
     .products-section { background: var(--color-cream); }
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
-      gap: 2.5rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2rem;
+      align-items: start;
     }
     .product-card {
       background: var(--color-white);
@@ -309,9 +310,15 @@
     }
     .contact-value:hover { color: var(--color-gold); }
     .social-section {
+      display: block;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      box-sizing: border-box;
       background: var(--color-black);
       padding: 5rem 2rem;
       text-align: center;
+      clear: both;
     }
     .social-title {
       font-family: var(--font-display);
@@ -346,9 +353,15 @@
     }
     .social-link svg { width: 22px; height: 22px; }
     .footer {
+      display: block;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      box-sizing: border-box;
       background: var(--color-charcoal);
       padding: 2rem;
       text-align: center;
+      clear: both;
     }
     .footer-text {
       font-family: var(--font-body);
@@ -412,53 +425,51 @@
     .nav-link:hover { color: var(--color-black); }
     .nav-link:hover::after { width: 100%; }
 
-    /* Destello dorado que acompaña el cursor: sutil, elegante y no intrusivo */
-    .carpano-cursor-glow {
+    /* Ondas ornamentales doradas: discretas y reactivas al cursor */
+    .carpano-cursor-waves {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      z-index: 9999;
+      z-index: 20;
       opacity: 0;
-      background: radial-gradient(circle,
-        rgba(197, 160, 89, 0.19) 0%,
-        rgba(197, 160, 89, 0.09) 28%,
-        rgba(197, 160, 89, 0.035) 48%,
-        rgba(197, 160, 89, 0) 72%);
-      transform: translate3d(-200px, -200px, 0) translate(-50%, -50%);
-      transition: opacity 220ms ease;
-      mix-blend-mode: multiply;
-      will-change: transform;
+      transition: opacity 350ms ease;
+      overflow: hidden;
     }
-    .carpano-cursor-glow::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: rgba(197, 160, 89, 0.75);
-      box-shadow: 0 0 10px 3px rgba(197, 160, 89, 0.22);
-      transform: translate(-50%, -50%);
+    .carpano-cursor-waves.is-visible { opacity: 1; }
+    .carpano-cursor-waves path {
+      fill: none;
+      stroke: var(--color-gold, #C5A059);
+      stroke-width: 1.15;
+      stroke-linecap: round;
+      vector-effect: non-scaling-stroke;
     }
-    .carpano-cursor-glow.is-visible { opacity: 1; }
+    .carpano-cursor-waves path:nth-child(1) { opacity: .22; }
+    .carpano-cursor-waves path:nth-child(2) { opacity: .14; }
+    .carpano-cursor-waves path:nth-child(3) { opacity: .09; }
     @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
-      .carpano-cursor-glow { display: none !important; }
+      .carpano-cursor-waves { display: none !important; }
     }
 
+    @media (max-width: 1024px) {
+      .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+    }
     @media (max-width: 768px) {
       .hero-logo { width: 140px; height: 140px; }
       .hero-logo svg { width: 90px; }
       .section { padding: 4rem 1.5rem; }
-      .products-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1.25rem; }
+      .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+      .product-info { padding: 1.25rem 1rem; }
+      .product-name { font-size: 1.1rem; }
       .contact-grid { grid-template-columns: 1fr; }
       .nav-links { gap: 1.2rem; }
       .hero-cta-group { flex-direction: column; width: 100%; }
       .btn { width: 100%; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .social-section { padding: 3.5rem 1.25rem; }
     }
     .fade-in {
       opacity: 0;
@@ -507,20 +518,6 @@
       <div class="section-divider"></div>
     </div>
     <div class="products-grid">
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-01.jpg" alt="Fotografía del producto 01" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Nombre del producto 01</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$0.99</span></p>
-          </div>
-        </div>
-      </article>
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -942,6 +939,8 @@
         </div>
       </article>
     </div>
+  </div>
+</section>
 
 <section class="contact-section" id="contacto">
   <div class="section">
@@ -1014,37 +1013,62 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Destello dorado siguiendo el cursor en dispositivos con ratón.
+  // Tres líneas onduladas que se deforman suavemente alrededor del cursor.
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
       !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const cursorGlow = document.createElement('div');
-    cursorGlow.className = 'carpano-cursor-glow';
-    cursorGlow.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(cursorGlow);
+    const waveSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    waveSvg.setAttribute('class', 'carpano-cursor-waves');
+    waveSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+    waveSvg.setAttribute('preserveAspectRatio', 'none');
+    waveSvg.setAttribute('aria-hidden', 'true');
 
-    let cursorFrame = 0;
-    let cursorX = -200;
-    let cursorY = -200;
+    const wavePaths = [];
+    for (let i = 0; i < 3; i++) {
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      waveSvg.appendChild(path);
+      wavePaths.push(path);
+    }
+    document.body.appendChild(waveSvg);
 
-    window.addEventListener('pointermove', (event) => {
-      cursorX = event.clientX;
-      cursorY = event.clientY;
-      if (!cursorFrame) {
-        cursorFrame = window.requestAnimationFrame(() => {
-          cursorGlow.style.transform =
-            `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
-          cursorGlow.classList.add('is-visible');
-          cursorFrame = 0;
-        });
+    let pointerX = window.innerWidth * 0.5;
+    let pointerY = window.innerHeight * 0.5;
+    let framePending = false;
+
+    const drawWaves = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      waveSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      wavePaths.forEach((path, index) => {
+        const offset = (index - 1) * 22;
+        const centerY = Math.max(55, Math.min(height - 55, pointerY + offset));
+        const pull = 65 + index * 16;
+        const startY = centerY - 35;
+        const endY = centerY + 35;
+        path.setAttribute('d',
+          `M -80 ${startY} C ${pointerX - pull * 2} ${startY - 20}, ${pointerX - pull} ${centerY - 65}, ${pointerX} ${centerY} S ${pointerX + pull * 2} ${endY + 20}, ${width + 80} ${endY}`);
+      });
+      waveSvg.classList.add('is-visible');
+      framePending = false;
+    };
+
+    window.addEventListener('pointermove', event => {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      if (!framePending) {
+        framePending = true;
+        window.requestAnimationFrame(drawWaves);
       }
     }, { passive: true });
 
-    document.documentElement.addEventListener('pointerleave', () => {
-      cursorGlow.classList.remove('is-visible');
-    });
-    document.documentElement.addEventListener('pointerenter', () => {
-      cursorGlow.classList.add('is-visible');
-    });
+    window.addEventListener('resize', () => {
+      if (!framePending) {
+        framePending = true;
+        window.requestAnimationFrame(drawWaves);
+      }
+    }, { passive: true });
+
+    document.documentElement.addEventListener('pointerleave', () => waveSvg.classList.remove('is-visible'));
+    document.documentElement.addEventListener('pointerenter', () => waveSvg.classList.add('is-visible'));
   }
 
 </script>
