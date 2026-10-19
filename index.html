@@ -1014,23 +1014,23 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Ondas SVG doradas en el fondo. Se crean en todos los equipos y no bloquean la interfaz.
+  // Ondas de fondo elegantes: cinco líneas fijas que solo se orientan hacia el cursor.
   {
     const waveSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     waveSvg.setAttribute('class', 'carpano-cursor-waves');
     waveSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
     waveSvg.setAttribute('preserveAspectRatio', 'none');
     waveSvg.setAttribute('aria-hidden', 'true');
-    waveSvg.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;opacity:1;display:block;';
+    waveSvg.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;opacity:1;display:block;overflow:hidden;';
     const wavePaths = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('fill', 'none');
       path.setAttribute('stroke', '#C5A059');
-      path.setAttribute('stroke-width', '1.7');
+      path.setAttribute('stroke-width', i === 2 ? '1.15' : '0.85');
       path.setAttribute('stroke-linecap', 'round');
       path.setAttribute('stroke-linejoin', 'round');
-      path.style.opacity = [0.52, 0.36, 0.24][i];
+      path.style.opacity = [0.12, 0.19, 0.32, 0.19, 0.12][i];
       waveSvg.appendChild(path);
       wavePaths.push(path);
     }
@@ -1040,34 +1040,32 @@
     let pointerY = window.innerHeight * 0.5;
     let targetX = pointerX;
     let targetY = pointerY;
-    let phase = 0;
-    let lastTime = 0;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let smoothX = pointerX;
+    let smoothY = pointerY;
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-    const drawWaves = (time = 0) => {
+    const drawWaves = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
-      lastTime = time;
-      if (!reduceMotion) phase += delta * 0.8;
-      pointerX += (targetX - pointerX) * 0.08;
-      pointerY += (targetY - pointerY) * 0.08;
+      smoothX += (targetX - smoothX) * 0.075;
+      smoothY += (targetY - smoothY) * 0.075;
       waveSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
       wavePaths.forEach((path, index) => {
-        // Las ondas se anclan al cursor en X y Y, con desplazamiento suave y mayor amplitud.
-        const centerY = pointerY + (index - 1) * 48;
-        const amplitude = 88 + index * 34;
-        const wavelength = 0.009 + index * 0.002;
+        const layer = index - 2;
+        const baseY = height * 0.5 + layer * 32;
+        const amplitude = 66 + Math.abs(layer) * 8;
+        const wavelength = 0.0068 + index * 0.00035;
+        const cursorOffsetX = (smoothX - width * 0.5) * 0.13;
+        const cursorOffsetY = (smoothY - height * 0.5) * 0.22;
         const points = [];
-        for (let x = -40; x <= width + 40; x += 16) {
-          const distance = Math.abs(x - pointerX) / Math.max(width * 0.22, 150);
-          const cursorInfluence = finePointer ? Math.exp(-distance * distance) : 0;
-          const cursorRipple = cursorInfluence * Math.sin((x - pointerX) * 0.022 + phase * 1.4) * 42;
-          const y = centerY
-            + Math.sin((x - pointerX) * wavelength + phase * (index % 2 ? -1 : 1) + index * 1.25) * amplitude
-            + cursorRipple;
+        for (let x = -30; x <= width + 30; x += 18) {
+          const relativeX = x - width * 0.5 - cursorOffsetX;
+          const cursorFocus = finePointer
+            ? Math.exp(-Math.pow((x - smoothX) / Math.max(width * 0.24, 180), 2))
+            : 0;
+          const gentleBend = cursorFocus * cursorOffsetY * 0.32;
+          const y = baseY + cursorOffsetY + Math.sin(relativeX * wavelength + layer * 0.48) * amplitude + gentleBend;
           points.push([x, y]);
         }
         let d = `M ${points[0][0]} ${points[0][1]}`;
@@ -1080,7 +1078,7 @@
         d += ` T ${last[0]} ${last[1]}`;
         path.setAttribute('d', d);
       });
-      if (!reduceMotion) window.requestAnimationFrame(drawWaves);
+      window.requestAnimationFrame(drawWaves);
     };
 
     if (finePointer) {
