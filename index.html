@@ -409,6 +409,45 @@
     }
     .nav-link:hover { color: var(--color-black); }
     .nav-link:hover::after { width: 100%; }
+
+    /* Destello dorado que acompaña el cursor: sutil, elegante y no intrusivo */
+    .carpano-cursor-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      background: radial-gradient(circle,
+        rgba(197, 160, 89, 0.19) 0%,
+        rgba(197, 160, 89, 0.09) 28%,
+        rgba(197, 160, 89, 0.035) 48%,
+        rgba(197, 160, 89, 0) 72%);
+      transform: translate3d(-200px, -200px, 0) translate(-50%, -50%);
+      transition: opacity 220ms ease;
+      mix-blend-mode: multiply;
+      will-change: transform;
+    }
+    .carpano-cursor-glow::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(197, 160, 89, 0.75);
+      box-shadow: 0 0 10px 3px rgba(197, 160, 89, 0.22);
+      transform: translate(-50%, -50%);
+    }
+    .carpano-cursor-glow.is-visible { opacity: 1; }
+    @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+      .carpano-cursor-glow { display: none !important; }
+    }
+
     @media (max-width: 768px) {
       .hero-logo { width: 140px; height: 140px; }
       .hero-logo svg { width: 90px; }
@@ -576,6 +615,40 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Destello dorado siguiendo el cursor en dispositivos con ratón.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const cursorGlow = document.createElement('div');
+    cursorGlow.className = 'carpano-cursor-glow';
+    cursorGlow.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(cursorGlow);
+
+    let cursorFrame = 0;
+    let cursorX = -200;
+    let cursorY = -200;
+
+    window.addEventListener('pointermove', (event) => {
+      cursorX = event.clientX;
+      cursorY = event.clientY;
+      if (!cursorFrame) {
+        cursorFrame = window.requestAnimationFrame(() => {
+          cursorGlow.style.transform =
+            `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+          cursorGlow.classList.add('is-visible');
+          cursorFrame = 0;
+        });
+      }
+    }, { passive: true });
+
+    document.documentElement.addEventListener('pointerleave', () => {
+      cursorGlow.classList.remove('is-visible');
+    });
+    document.documentElement.addEventListener('pointerenter', () => {
+      cursorGlow.classList.add('is-visible');
+    });
+  }
+
 </script>
 
 </body>
