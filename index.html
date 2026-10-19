@@ -39,7 +39,7 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      background: var(--color-white);
+      background: rgba(248, 245, 240, 0.86);
       padding: 2rem;
     }
     .hero-logo {
@@ -186,7 +186,7 @@
       background: var(--color-gold);
       margin: 0 auto;
     }
-    .products-section { background: var(--color-cream); }
+    .products-section { background: rgba(240, 235, 227, 0.84); }
     .products-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -262,7 +262,7 @@
       background: var(--color-gold);
       color: var(--color-white);
     }
-    .contact-section { background: var(--color-white); }
+    .contact-section { background: rgba(248, 245, 240, 0.86); }
     .contact-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -315,7 +315,7 @@
       max-width: none;
       margin: 0;
       box-sizing: border-box;
-      background: var(--color-black);
+      background: rgba(26, 26, 26, 0.96);
       padding: 5rem 2rem;
       text-align: center;
       clear: both;
@@ -358,7 +358,7 @@
       max-width: none;
       margin: 0;
       box-sizing: border-box;
-      background: var(--color-charcoal);
+      background: rgba(45, 45, 45, 0.96);
       padding: 2rem;
       text-align: center;
       clear: both;
@@ -436,7 +436,8 @@
       opacity: 0;
       transition: opacity 350ms ease;
       overflow: hidden;
-      isolation: isolate;
+      isolation: auto;
+      will-change: opacity;
     }
     .carpano-cursor-waves.is-visible { opacity: 1; }
     .carpano-cursor-waves path {
