@@ -432,10 +432,11 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 20;
+      z-index: 0;
       opacity: 0;
       transition: opacity 350ms ease;
       overflow: hidden;
+      isolation: isolate;
     }
     .carpano-cursor-waves.is-visible { opacity: 1; }
     .carpano-cursor-waves path {
@@ -444,10 +445,20 @@
       stroke-width: 1.15;
       stroke-linecap: round;
       vector-effect: non-scaling-stroke;
+      animation: carpano-wave-drift 9s ease-in-out infinite alternate;
     }
-    .carpano-cursor-waves path:nth-child(1) { opacity: .22; }
-    .carpano-cursor-waves path:nth-child(2) { opacity: .14; }
-    .carpano-cursor-waves path:nth-child(3) { opacity: .09; }
+    .carpano-cursor-waves path:nth-child(1) { opacity: .22; animation-duration: 8s; }
+    .carpano-cursor-waves path:nth-child(2) { opacity: .14; animation-duration: 11s; animation-delay: -3s; }
+    .carpano-cursor-waves path:nth-child(3) { opacity: .09; animation-duration: 14s; animation-delay: -5s; }
+    @keyframes carpano-wave-drift {
+      0% { stroke-dasharray: 4 10; stroke-dashoffset: 0; }
+      100% { stroke-dasharray: 12 7; stroke-dashoffset: -90; }
+    }
+    /* Mantiene las ondas detrás del contenido sin bloquear clics ni navegación. */
+    body > *:not(.carpano-cursor-waves) { position: relative; z-index: 1; }
+    @media (prefers-reduced-motion: reduce) {
+      .carpano-cursor-waves path { animation: none !important; }
+    }
     @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
       .carpano-cursor-waves { display: none !important; }
     }
@@ -1032,43 +1043,63 @@
 
     let pointerX = window.innerWidth * 0.5;
     let pointerY = window.innerHeight * 0.5;
-    let framePending = false;
+    let targetX = pointerX;
+    let targetY = pointerY;
+    let phase = 0;
+    let animationFrame = 0;
+    let lastTime = 0;
 
-    const drawWaves = () => {
+    const drawWaves = (time = 0) => {
       const width = window.innerWidth;
       const height = window.innerHeight;
+      const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
+      lastTime = time;
+      phase += delta * 1.15;
+      // Suaviza el seguimiento del cursor y mantiene una ondulación autónoma.
+      pointerX += (targetX - pointerX) * 0.075;
+      pointerY += (targetY - pointerY) * 0.075;
       waveSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
       wavePaths.forEach((path, index) => {
-        const offset = (index - 1) * 22;
-        const centerY = Math.max(55, Math.min(height - 55, pointerY + offset));
-        const pull = 65 + index * 16;
-        const startY = centerY - 35;
-        const endY = centerY + 35;
-        path.setAttribute('d',
-          `M -80 ${startY} C ${pointerX - pull * 2} ${startY - 20}, ${pointerX - pull} ${centerY - 65}, ${pointerX} ${centerY} S ${pointerX + pull * 2} ${endY + 20}, ${width + 80} ${endY}`);
+        const offset = (index - 1) * 24;
+        const centerY = Math.max(45, Math.min(height - 45, pointerY + offset));
+        const amplitude = 26 + index * 9;
+        const wavelength = 0.006 + index * 0.001;
+        const points = [];
+        for (let x = -40; x <= width + 40; x += 32) {
+          const influence = Math.exp(-Math.pow((x - pointerX) / (width * 0.22 + 120), 2));
+          const cursorPull = (pointerY - height * 0.5) * 0.12 * influence;
+          const y = centerY
+            + Math.sin(x * wavelength + phase * (index % 2 ? -1 : 1) + index * 1.7) * amplitude
+            + cursorPull;
+          points.push([x, y]);
+        }
+        const d = points.map((point, i) => {
+          if (i === 0) return `M ${point[0]} ${point[1]}`;
+          const prev = points[i - 1];
+          const midX = (prev[0] + point[0]) / 2;
+          const midY = (prev[1] + point[1]) / 2;
+          return `Q ${prev[0]} ${prev[1]} ${midX} ${midY}`;
+        }).join(' ') + ` T ${points[points.length - 1][0]} ${points[points.length - 1][1]}`;
+        path.setAttribute('d', d);
       });
       waveSvg.classList.add('is-visible');
-      framePending = false;
+      animationFrame = window.requestAnimationFrame(drawWaves);
     };
 
     window.addEventListener('pointermove', event => {
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-      if (!framePending) {
-        framePending = true;
-        window.requestAnimationFrame(drawWaves);
-      }
+      targetX = event.clientX;
+      targetY = event.clientY;
+      waveSvg.classList.add('is-visible');
     }, { passive: true });
 
     window.addEventListener('resize', () => {
-      if (!framePending) {
-        framePending = true;
-        window.requestAnimationFrame(drawWaves);
-      }
+      targetX = Math.min(targetX, window.innerWidth);
+      targetY = Math.min(targetY, window.innerHeight);
     }, { passive: true });
 
     document.documentElement.addEventListener('pointerleave', () => waveSvg.classList.remove('is-visible'));
     document.documentElement.addEventListener('pointerenter', () => waveSvg.classList.add('is-visible'));
+    animationFrame = window.requestAnimationFrame(drawWaves);
   }
 
 </script>
