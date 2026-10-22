@@ -195,6 +195,15 @@
       gap: 2rem;
       align-items: start;
     }
+    .product-subsection { margin-top: 4rem; }
+    .product-subsection:first-of-type { margin-top: 0; }
+    .subsection-heading { text-align: center; max-width: 680px; margin: 0 auto 2rem; }
+    .subsection-title { font-family: var(--font-heading); font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 600; margin-bottom: .6rem; color: var(--color-black); }
+    .subsection-description { color: var(--color-gray); font-size: .9rem; line-height: 1.8; }
+    .product-includes { padding: 0 1.8rem 1.8rem; }
+    .includes-title { font-family: var(--font-body); font-size: .76rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--color-gold-dark); margin-bottom: .55rem; }
+    .product-includes ul { padding-left: 1.15rem; color: var(--color-gray); font-size: .76rem; line-height: 1.75; }
+    .product-includes li { padding-left: .15rem; margin-bottom: .2rem; }
     .product-card {
       background: var(--color-white);
       border: 1px solid #EAEAEA;
@@ -520,7 +529,14 @@
       <h2 class="section-title">Productos Disponibles</h2>
       <div class="section-divider"></div>
     </div>
-    <div class="products-grid">
+
+    <section class="product-subsection" aria-labelledby="sub-parejas">
+      <div class="subsection-heading fade-in">
+        <p class="section-label">Detalles que conectan</p>
+        <h3 class="subsection-title" id="sub-parejas">Para parejas</h3>
+        <p class="subsection-description">Piezas para compartir, combinar o recordar una conexión especial.</p>
+      </div>
+      <div class="products-grid">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -534,20 +550,14 @@
             <p class="product-meta-item">Precio: <span>$9.99</span></p>
           </div>
         </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-03.jpg" alt="Fotografía del producto 03" loading="lazy" decoding="async" width="600" height="600">
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>Collares complementarios para compartir en pareja o amistad</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
           </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Collar de dinosaurio con corazón luminoso</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$9.99</span></p>
-          </div>
-        </div>
       </article>
       <article class="product-card fade-in">
         <div class="product-images">
@@ -562,6 +572,14 @@
             <p class="product-meta-item">Precio: <span>$9.99</span></p>
           </div>
         </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>Pulseras para compartir en pareja</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
       </article>
       <article class="product-card fade-in">
         <div class="product-images">
@@ -576,300 +594,15 @@
             <p class="product-meta-item">Precio: <span>$10.99</span></p>
           </div>
         </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-06.jpg" alt="Fotografía del producto 06" loading="lazy" decoding="async" width="600" height="600">
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>Collar con dije de candado</li>
+              <li>Collar con dije de llave</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
           </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Collar de Hello Kitty y aretes dorados</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$9.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-07.jpg" alt="Fotografía del producto 07" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Collar, aretes y anillo de flor de cerezo</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$11.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-08.jpg" alt="Fotografía del producto 08" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Collar de tulipán primaveral dorado</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$9.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-09.jpg" alt="Fotografía del producto 09" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Collar de tulipán ligero</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$10.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-10.jpg" alt="Fotografía del producto 10" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Collar y aretes de cereza dorado</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$9.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-11.jpg" alt="Fotografía del producto 11" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Pulsera de flor de cerezo</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$10.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-12.jpg" alt="Fotografía del producto 12" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Reloj de cuarzo y pulsera de hoja</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$11.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-13.jpg" alt="Fotografía del producto 13" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Pulsera de trebol de 4 hojas</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$9.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-14.jpg" alt="Fotografía del producto 14" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Pulsera de trebol dorada</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$10.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-15.jpg" alt="Fotografía del producto 15" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Collar de cruz dorado</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$9.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-16.jpg" alt="Fotografía del producto 16" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Pulsera de mariposas doradas</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$10.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-17.jpg" alt="Fotografía del producto 17" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Collar y pulsera de Hello Kitty</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$12.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-18.jpg" alt="Fotografía del producto 18" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Collar y aretes de mariposa blanca</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$10.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-19.jpg" alt="Fotografía del producto 19" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Pulsera y collar de corazón dorado</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$13.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-20.jpg" alt="Fotografía del producto 20" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Aretes y collar de corazón y perlas blancas</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$13.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-21.jpg" alt="Fotografía del producto 21" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Pulsera, collar y aretes de trebol negro</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$14.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-22.jpg" alt="Fotografía del producto 22" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Collar y pulsera de corazón dorado vintage</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$11.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-23.jpg" alt="Fotografía del producto 23" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Nombre del producto 23</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$12.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-24.jpg" alt="Fotografía del producto 24" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Pulsera y collar de trebol dorado y rojo</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$11.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-25.jpg" alt="Fotografía del producto 25" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Pulsera bohemia de girasol</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$11.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-26.jpg" alt="Fotografía del producto 26" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Nombre del producto 26</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$16.99</span></p>
-          </div>
-        </div>
       </article>
       <article class="product-card fade-in">
         <div class="product-images">
@@ -884,34 +617,14 @@
             <p class="product-meta-item">Precio: <span>$10.99</span></p>
           </div>
         </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-28.jpg" alt="Fotografía del producto 28" loading="lazy" decoding="async" width="600" height="600">
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>Pulseras para compartir en pareja</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
           </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Collar, anillo y aretes con incrustación de circonita</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$12.99</span></p>
-          </div>
-        </div>
-      </article>
-      <article class="product-card fade-in">
-        <div class="product-images">
-          <div class="product-img">
-            <img src="assets/productos/producto-29.jpg" alt="Fotografía del producto 29" loading="lazy" decoding="async" width="600" height="600">
-          </div>
-        </div>
-        <div class="product-info">
-          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
-          <h3 class="product-name">Pulsera de dinosaurio y corazón luminoso</h3>
-          <div class="product-meta">
-            <p class="product-meta-item">Precio: <span>$7.99</span></p>
-          </div>
-        </div>
       </article>
       <article class="product-card fade-in">
         <div class="product-images">
@@ -926,6 +639,578 @@
             <p class="product-meta-item">Precio: <span>$15.99</span></p>
           </div>
         </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>2 anillos ajustables</li>
+              <li>1 caja para presentarlos</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      </div>
+    </section>
+
+    <section class="product-subsection" aria-labelledby="sub-regalos">
+      <div class="subsection-heading fade-in">
+        <p class="section-label">Un detalle con intención</p>
+        <h3 class="subsection-title" id="sub-regalos">Para regalar</h3>
+        <p class="subsection-description">Sets y accesorios pensados para cumpleaños, fechas especiales o simplemente sorprender.</p>
+      </div>
+      <div class="products-grid">
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-06.jpg" alt="Fotografía del producto 06" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Collar de Hello Kitty y aretes dorados</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$9.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 collar</li>
+              <li>1 par de aretes</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-07.jpg" alt="Fotografía del producto 07" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Collar, aretes y anillo de flor de cerezo</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 collar</li>
+              <li>1 par de aretes</li>
+              <li>1 anillo</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-10.jpg" alt="Fotografía del producto 10" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Collar y aretes de cereza dorado</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$9.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 collar</li>
+              <li>1 par de aretes</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-17.jpg" alt="Fotografía del producto 17" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Collar y pulsera de Hello Kitty</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$12.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 collar</li>
+              <li>1 pulsera</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-19.jpg" alt="Fotografía del producto 19" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Pulsera y collar de corazón dorado</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$13.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 pulsera</li>
+              <li>1 collar</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-20.jpg" alt="Fotografía del producto 20" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Aretes y collar de corazón y perlas blancas</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$13.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 par de aretes</li>
+              <li>1 collar</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-21.jpg" alt="Fotografía del producto 21" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Pulsera, collar y aretes de trebol negro</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$14.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 pulsera</li>
+              <li>1 collar</li>
+              <li>1 par de aretes</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-22.jpg" alt="Fotografía del producto 22" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Collar y pulsera de corazón dorado vintage</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 collar</li>
+              <li>1 pulsera</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-23.jpg" alt="Fotografía del producto 23" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 23</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$12.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>Piezas que aparecen en la fotografía del producto; confirmar el contenido exacto antes de publicar el nombre definitivo</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-24.jpg" alt="Fotografía del producto 24" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Pulsera y collar de trebol dorado y rojo</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 pulsera</li>
+              <li>1 collar</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-28.jpg" alt="Fotografía del producto 28" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Collar, anillo y aretes con incrustación de circonita</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$12.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 collar</li>
+              <li>1 anillo</li>
+              <li>1 par de aretes</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      </div>
+    </section>
+
+    <section class="product-subsection" aria-labelledby="sub-mimimo">
+      <div class="subsection-heading fade-in">
+        <p class="section-label">Tu estilo, tus reglas</p>
+        <h3 class="subsection-title" id="sub-mimimo">Para mí</h3>
+        <p class="subsection-description">Piezas para expresar tu personalidad y elevar tus looks cotidianos.</p>
+      </div>
+      <div class="products-grid">
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-03.jpg" alt="Fotografía del producto 03" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Collar de dinosaurio con corazón luminoso</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$9.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 collar con dije de dinosaurio y corazón luminoso</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-08.jpg" alt="Fotografía del producto 08" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Collar de tulipán primaveral dorado</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$9.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 collar</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-09.jpg" alt="Fotografía del producto 09" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Collar de tulipán ligero</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 collar</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-11.jpg" alt="Fotografía del producto 11" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Pulsera de flor de cerezo</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 pulsera</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-12.jpg" alt="Fotografía del producto 12" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Reloj de cuarzo y pulsera de hoja</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 reloj de cuarzo</li>
+              <li>1 pulsera de hoja</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-13.jpg" alt="Fotografía del producto 13" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Pulsera de trebol de 4 hojas</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$9.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 pulsera</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-14.jpg" alt="Fotografía del producto 14" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Pulsera de trebol dorada</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 pulsera</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-15.jpg" alt="Fotografía del producto 15" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Collar de cruz dorado</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$9.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 collar</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-16.jpg" alt="Fotografía del producto 16" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Pulsera de mariposas doradas</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 pulsera</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-18.jpg" alt="Fotografía del producto 18" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Collar y aretes de mariposa blanca</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$10.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 collar</li>
+              <li>1 par de aretes</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-25.jpg" alt="Fotografía del producto 25" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Pulsera bohemia de girasol</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$11.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 pulsera</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-26.jpg" alt="Fotografía del producto 26" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Nombre del producto 26</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$16.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>Piezas que aparecen en la fotografía del producto; confirmar el contenido exacto antes de publicar el nombre definitivo</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
+      </article>
+      <article class="product-card fade-in">
+        <div class="product-images">
+          <div class="product-img">
+            <img src="assets/productos/producto-29.jpg" alt="Fotografía del producto 29" loading="lazy" decoding="async" width="600" height="600">
+          </div>
+        </div>
+        <div class="product-info">
+          <!-- Puedes reemplazar este texto por el nombre comercial del producto. -->
+          <h3 class="product-name">Pulsera de dinosaurio y corazón luminoso</h3>
+          <div class="product-meta">
+            <p class="product-meta-item">Precio: <span>$7.99</span></p>
+          </div>
+        </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 pulsera con dije de dinosaurio y corazón luminoso</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
       </article>
       <article class="product-card fade-in">
         <div class="product-images">
@@ -940,8 +1225,17 @@
             <p class="product-meta-item">Precio: <span>$12.99</span></p>
           </div>
         </div>
+          <div class="product-includes">
+            <p class="includes-title">Incluye:</p>
+            <ul>
+              <li>1 pulsera</li>
+              <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+              <li>Presentación cuidada de Carpaño</li>
+            </ul>
+          </div>
       </article>
-    </div>
+      </div>
+    </section>
   </div>
 </section>
 
