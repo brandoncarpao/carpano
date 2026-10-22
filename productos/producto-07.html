@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+  <meta name="description" content="Collar, aretes y anillo de flor de cerezo de Carpaño. Consulta el precio, los detalles y lo que incluye esta pieza.">
+  <title>Collar, aretes y anillo de flor de cerezo | Carpaño</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold:#C5A059; --gold-light:#D4B87A; --gold-dark:#A07D3A; --black:#1A1A1A; --charcoal:#2D2D2D; --gray:#6B6B6B; --white:#F8F5F0; --cream:#F0EBE3; --display:'Cinzel',serif; --heading:'Playfair Display',serif; --body:'Montserrat',sans-serif; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--white); color:var(--black); font-family:var(--body); line-height:1.7; }
+    .nav { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1.1rem clamp(1rem,4vw,3rem); background:rgba(255,255,255,.94); border-bottom:1px solid rgba(0,0,0,.07); }
+    .brand { display:flex; align-items:center; gap:.8rem; color:var(--black); text-decoration:none; font:500 .95rem var(--display); letter-spacing:.16em; text-transform:uppercase; }
+    .brand img { width:42px; height:42px; border-radius:50%; object-fit:contain; box-shadow:0 0 0 1px rgba(197,160,89,.25),0 0 9px rgba(197,160,89,.12); }
+    .nav a.back { color:var(--gray); text-decoration:none; font-size:.72rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase; }
+    .nav a.back:hover { color:var(--gold-dark); }
+    .page { max-width:1120px; margin:auto; padding:clamp(2rem,5vw,4.5rem) clamp(1rem,4vw,2.5rem) 5rem; }
+    .crumb { margin-bottom:2rem; font-size:.72rem; color:var(--gray); letter-spacing:.06em; }
+    .crumb a { color:var(--gold-dark); text-decoration:none; }
+    .detail-grid { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:clamp(2rem,5vw,4.5rem); align-items:start; }
+    .photo-frame { background:var(--cream); border:1px solid rgba(197,160,89,.22); padding:.65rem; box-shadow:0 18px 45px rgba(0,0,0,.06); }
+    .photo-frame img { display:block; width:100%; aspect-ratio:1/1; object-fit:contain; background:#fff; }
+    .eyebrow { color:var(--gold-dark); font-size:.68rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; margin-bottom:.8rem; }
+    h1 { font:500 clamp(1.8rem,4vw,3rem)/1.25 var(--heading); margin-bottom:1rem; }
+    .description { color:var(--gray); font-size:.92rem; margin-bottom:1.4rem; }
+    .price { font:500 1.8rem var(--heading); margin-bottom:1.4rem; }
+    .rule { width:62px; height:1px; background:var(--gold); margin:1.6rem 0; }
+    h2 { font:500 1.15rem var(--heading); margin-bottom:.8rem; }
+    .includes { list-style:none; display:grid; gap:.65rem; margin-bottom:1.6rem; }
+    .includes li { position:relative; padding-left:1.5rem; color:var(--gray); font-size:.82rem; }
+    .includes li::before { content:'✓'; position:absolute; left:0; top:0; color:var(--gold-dark); font-weight:600; }
+    .note { background:rgba(240,235,227,.75); border-left:2px solid var(--gold); padding:1rem 1.1rem; margin:1.5rem 0; font-size:.78rem; color:var(--gray); }
+    .actions { display:flex; flex-wrap:wrap; gap:.8rem; margin-top:1.5rem; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:.85rem 1.3rem; font:500 .7rem var(--body); letter-spacing:.1em; text-transform:uppercase; text-decoration:none; transition:transform .2s,background .2s; }
+    .btn:hover { transform:translateY(-2px); }
+    .primary { background:var(--black); color:var(--white); border:1px solid var(--black); }
+    .primary:hover { background:var(--charcoal); }
+    .secondary { border:1px solid var(--gold); color:var(--black); }
+    .secondary:hover { background:var(--cream); }
+    .foot { text-align:center; padding:1.6rem 1rem; background:var(--charcoal); color:rgba(255,255,255,.55); font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; }
+    @media(max-width:760px) { .detail-grid { grid-template-columns:1fr; gap:2rem; } .photo-frame { max-width:600px; margin:auto; width:100%; } .actions .btn { flex:1 1 100%; } .brand { font-size:.8rem; } }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .btn { transition:none; } }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="../index.html"><img src="../logo/C_sin borde.png" alt="" width="42" height="42">Carpaño</a>
+    <a class="back" href="../index.html#productos">← Volver al catálogo</a>
+  </header>
+  <main class="page">
+    <p class="crumb"><a href="../index.html">Inicio</a> / <a href="../index.html#productos">Productos</a> / Para regalar</p>
+    <div class="detail-grid">
+      <div class="photo-frame">
+        <img src="../assets/productos/producto-07.jpg" alt="Collar, aretes y anillo de flor de cerezo" width="800" height="800" fetchpriority="high">
+      </div>
+      <section class="detail-info">
+        <p class="eyebrow">Para regalar · Colección Carpaño</p>
+        <h1>Collar, aretes y anillo de flor de cerezo</h1>
+        <p class="description">Una opción especial para sorprender en cumpleaños, fechas importantes o simplemente alegrarle el día a alguien. Su motivo floral o natural añade un toque delicado y expresivo.</p>
+        <p class="price">$11.99</p>
+        <div class="rule"></div>
+        <h2>Incluye</h2>
+        <ul class="includes">
+          <li>1 collar</li>
+          <li>1 par de aretes</li>
+          <li>1 anillo</li>
+          <li>Tarjeta digital de cuidado de joyería Carpaño</li>
+          <li>Presentación cuidada de Carpaño</li>
+        </ul>
+        <p class="note">La disponibilidad y el contenido del pedido se confirman al realizar la consulta. La tarjeta digital de cuidado y la presentación Carpaño se ofrecen según la preparación de cada pedido.</p>
+        <div class="actions">
+          <a class="btn primary" href="https://wa.me/50373409481?text=Hola%2C%20Carpa%C3%B1o.%20Me%20interesa%20Collar%2C%20aretes%20y%20anillo%20de%20flor%20de%20cerezo%20(%2411.99).%20%C2%BFMe%20pueden%20confirmar%20disponibilidad%20y%20detalles%3F" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
+          <a class="btn secondary" href="../index.html#productos">Seguir explorando</a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="foot">© 2026 Carpaño — Todos los derechos reservados</footer>
+</body>
+</html>
