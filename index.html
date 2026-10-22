@@ -208,7 +208,7 @@
     /* Tarjetas-regalo interactivas exclusivas de la colección «Para mí». */
     .gift-product { min-width: 0; position: relative; }
     .gift-cover {
-      width: 100%; min-height: 100%; aspect-ratio: 0.78; position: relative; isolation: isolate; overflow: hidden;
+      width: 100%; min-height: 100%; aspect-ratio: 9 / 16; position: relative; isolation: isolate; overflow: hidden;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .9rem; padding: 1.5rem 1rem;
       border: 1px solid rgba(197,160,89,.8); color: var(--color-white);
       background: radial-gradient(ellipse at 50% 38%, rgba(212,184,122,.22), transparent 48%), linear-gradient(145deg, #29251f 0%, #171615 58%, #393022 100%);
@@ -220,14 +220,16 @@
     .gift-cover::after { width: 190px; height: 190px; border: 1px solid rgba(212,184,122,.14); border-radius: 50%; top: -75px; right: -90px; box-shadow: 0 0 0 14px rgba(212,184,122,.035), 0 0 0 29px rgba(212,184,122,.025); }
     .gift-cover:hover, .gift-cover:focus-visible { transform: translateY(-5px); border-color: #E8CD8F; box-shadow: inset 0 0 0 5px rgba(197,160,89,.13), inset 0 0 0 6px rgba(197,160,89,.3), 0 20px 38px rgba(26,26,26,.22); outline: 2px solid var(--color-gold-light); outline-offset: 3px; }
     .gift-kicker { color: #DCC18A; font-size: .62rem; letter-spacing: .22em; text-align: center; position: relative; z-index: 1; }
-    .gift-box { width: 112px; height: 91px; position: relative; display: block; margin: .45rem 0 .15rem; filter: drop-shadow(0 9px 8px rgba(0,0,0,.28)); }
-    .gift-box::before { content: ""; position: absolute; left: 4px; right: 4px; bottom: 0; height: 59px; border: 1px solid #D9B66D; background: linear-gradient(110deg, #B48A42, #E5CA88 48%, #A87C34); border-radius: 2px; }
-    .gift-lid { position: absolute; left: 0; right: 0; top: 23px; height: 16px; background: linear-gradient(90deg, #D0AD67, #F0D99D 48%, #BD9145); border: 1px solid #F0D99D; border-radius: 2px; z-index: 3; }
-    .gift-ribbon { position: absolute; z-index: 4; top: 31px; bottom: 3px; left: 48px; width: 17px; background: linear-gradient(90deg,#7C1724,#B7333A 50%,#7C1724); border-left: 1px solid rgba(255,230,190,.45); border-right: 1px solid rgba(70,0,0,.25); }
-    .gift-bow { position: absolute; top: 0; width: 35px; height: 26px; border: 5px solid #B7333A; border-radius: 70% 70% 15% 70%; z-index: 5; }
-    .gift-bow-left { left: 28px; transform: rotate(24deg); }
-    .gift-bow-right { right: 27px; transform: scaleX(-1) rotate(24deg); }
-    .gift-knot { position: absolute; top: 17px; left: 47px; width: 20px; height: 17px; border-radius: 45%; background: #D04A4B; border: 1px solid #F0B6A2; z-index: 6; }
+    
+    .jewel-emblem { width: 118px; height: 118px; position: relative; display: grid; place-items: center; margin: .8rem 0; border: 1px solid rgba(212,184,122,.55); border-radius: 50%; box-shadow: 0 0 0 8px rgba(212,184,122,.035), inset 0 0 28px rgba(212,184,122,.07); }
+    .jewel-emblem::before, .jewel-emblem::after { content: ""; position: absolute; border: 1px solid rgba(212,184,122,.24); border-radius: 50%; }
+    .jewel-emblem::before { inset: 8px; }
+    .jewel-emblem::after { width: 5px; height: 5px; top: 13px; right: 20px; background: #DCC18A; border: 0; box-shadow: 0 0 12px rgba(220,193,138,.8); }
+    .jewel-stone { width: 47px; height: 47px; position: relative; transform: rotate(45deg); border: 1px solid #E8CD8F; background: linear-gradient(135deg, rgba(240,217,157,.92), rgba(169,128,54,.65) 48%, rgba(40,35,27,.92)); box-shadow: 0 0 22px rgba(212,184,122,.16); }
+    .jewel-stone::before, .jewel-stone::after { content: ""; position: absolute; inset: 7px; border: 1px solid rgba(255,242,204,.65); }
+    .jewel-stone::after { inset: 0 50%; border: 0; width: 1px; background: rgba(255,242,204,.65); transform: rotate(-45deg) scaleY(1.4); }
+    .jewel-shine { position: absolute; width: 6px; height: 6px; top: 25px; left: 28px; border-radius: 50%; background: #F7E9C7; box-shadow: 0 0 12px #E8CD8F; }
+    .jewel-chain { position: absolute; width: 26px; height: 26px; border: 1px solid rgba(220,193,138,.75); border-radius: 50%; top: 15px; left: 45px; transform: scaleY(.45); }
     .gift-message { font-family: var(--font-heading); font-size: clamp(1.1rem, 1.6vw, 1.35rem); line-height: 1.35; color: #F7E9C7; text-align: center; }
     .gift-hint { color: rgba(248,245,240,.72); font-size: .67rem; letter-spacing: .12em; text-transform: uppercase; text-align: center; margin-top: .1rem; }
     .gift-glint { position: absolute; color: #E8CD8F; text-shadow: 0 0 12px rgba(232,205,143,.45); }
@@ -239,7 +241,7 @@
     .gift-product.is-open .product-card-link { display: block; animation: giftReveal .48s cubic-bezier(.2,.75,.25,1) both; }
     @keyframes giftReveal { from { opacity: 0; transform: translateY(12px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @media (prefers-reduced-motion: reduce) { .gift-cover, .gift-glint-one, .gift-glint-two, .gift-product.is-open .product-card-link { animation: none !important; transition: none !important; } }
-    @media (max-width: 480px) { .gift-box { transform: scale(.92); margin: .1rem 0; } .gift-cover { min-height: 330px; } }
+    @media (max-width: 480px) { .gift-cover { padding: 1.1rem .65rem; gap: .7rem; } .jewel-emblem { transform: scale(.9); margin: .4rem 0; } .gift-kicker { font-size: .55rem; letter-spacing: .15em; } .gift-message { font-size: 1.05rem; } .gift-hint { font-size: .58rem; letter-spacing: .08em; } }
 
     .product-card-link { display: block; min-width: 0; color: inherit; text-decoration: none; outline-offset: 4px; }
     .product-card-link:focus-visible { outline: 2px solid var(--color-gold-dark); }
@@ -977,8 +979,8 @@
           <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
           <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
           <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
-          <span class="gift-message">Un detalle para ti</span>
-          <span class="gift-hint">Toca para descubrir</span>
+          <span class="gift-message">Tu próximo favorito</span>
+          <span class="gift-hint">Pulsa para revelar</span>
         </button>
         <a class="product-card-link" href="productos/producto-03.html" aria-label="Ver detalles de Collar de dinosaurio con corazón luminoso">
       <article class="product-card fade-in">
@@ -1557,6 +1559,23 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  // Mostrar hasta seis regalos en orden aleatorio en cada recarga.
+  {
+    const giftGrid = document.querySelector('#sub-mimimo')?.closest('.product-subsection')?.querySelector('.products-grid');
+    if (giftGrid) {
+      const gifts = Array.from(giftGrid.querySelectorAll('.gift-product'));
+      for (let i = gifts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [gifts[i], gifts[j]] = [gifts[j], gifts[i]];
+      }
+      gifts.forEach(gift => { gift.hidden = true; });
+      gifts.slice(0, 6).forEach(gift => {
+        gift.hidden = false;
+        giftGrid.appendChild(gift);
+      });
+    }
+  }
+
   document.querySelectorAll('.gift-cover').forEach(button => {
     button.addEventListener('click', () => {
       const gift = button.closest('.gift-product');
