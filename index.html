@@ -204,6 +204,43 @@
     .includes-title { font-family: var(--font-body); font-size: .76rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--color-gold-dark); margin-bottom: .55rem; }
     .product-includes ul { padding-left: 1.15rem; color: var(--color-gray); font-size: .76rem; line-height: 1.75; }
     .product-includes li { padding-left: .15rem; margin-bottom: .2rem; }
+
+    /* Tarjetas-regalo interactivas exclusivas de la colección «Para mí». */
+    .gift-product { min-width: 0; position: relative; }
+    .gift-cover {
+      width: 100%; min-height: 100%; aspect-ratio: 0.78; position: relative; isolation: isolate; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .9rem; padding: 1.5rem 1rem;
+      border: 1px solid rgba(197,160,89,.8); color: var(--color-white);
+      background: radial-gradient(ellipse at 50% 38%, rgba(212,184,122,.22), transparent 48%), linear-gradient(145deg, #29251f 0%, #171615 58%, #393022 100%);
+      box-shadow: inset 0 0 0 5px rgba(197,160,89,.10), inset 0 0 0 6px rgba(197,160,89,.20), 0 12px 28px rgba(26,26,26,.12);
+      cursor: pointer; font-family: var(--font-body); transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .gift-cover::before, .gift-cover::after { content: ""; position: absolute; pointer-events: none; z-index: -1; }
+    .gift-cover::before { inset: 13px; border: 1px solid rgba(212,184,122,.28); }
+    .gift-cover::after { width: 190px; height: 190px; border: 1px solid rgba(212,184,122,.14); border-radius: 50%; top: -75px; right: -90px; box-shadow: 0 0 0 14px rgba(212,184,122,.035), 0 0 0 29px rgba(212,184,122,.025); }
+    .gift-cover:hover, .gift-cover:focus-visible { transform: translateY(-5px); border-color: #E8CD8F; box-shadow: inset 0 0 0 5px rgba(197,160,89,.13), inset 0 0 0 6px rgba(197,160,89,.3), 0 20px 38px rgba(26,26,26,.22); outline: 2px solid var(--color-gold-light); outline-offset: 3px; }
+    .gift-kicker { color: #DCC18A; font-size: .62rem; letter-spacing: .22em; text-align: center; position: relative; z-index: 1; }
+    .gift-box { width: 112px; height: 91px; position: relative; display: block; margin: .45rem 0 .15rem; filter: drop-shadow(0 9px 8px rgba(0,0,0,.28)); }
+    .gift-box::before { content: ""; position: absolute; left: 4px; right: 4px; bottom: 0; height: 59px; border: 1px solid #D9B66D; background: linear-gradient(110deg, #B48A42, #E5CA88 48%, #A87C34); border-radius: 2px; }
+    .gift-lid { position: absolute; left: 0; right: 0; top: 23px; height: 16px; background: linear-gradient(90deg, #D0AD67, #F0D99D 48%, #BD9145); border: 1px solid #F0D99D; border-radius: 2px; z-index: 3; }
+    .gift-ribbon { position: absolute; z-index: 4; top: 31px; bottom: 3px; left: 48px; width: 17px; background: linear-gradient(90deg,#7C1724,#B7333A 50%,#7C1724); border-left: 1px solid rgba(255,230,190,.45); border-right: 1px solid rgba(70,0,0,.25); }
+    .gift-bow { position: absolute; top: 0; width: 35px; height: 26px; border: 5px solid #B7333A; border-radius: 70% 70% 15% 70%; z-index: 5; }
+    .gift-bow-left { left: 28px; transform: rotate(24deg); }
+    .gift-bow-right { right: 27px; transform: scaleX(-1) rotate(24deg); }
+    .gift-knot { position: absolute; top: 17px; left: 47px; width: 20px; height: 17px; border-radius: 45%; background: #D04A4B; border: 1px solid #F0B6A2; z-index: 6; }
+    .gift-message { font-family: var(--font-heading); font-size: clamp(1.1rem, 1.6vw, 1.35rem); line-height: 1.35; color: #F7E9C7; text-align: center; }
+    .gift-hint { color: rgba(248,245,240,.72); font-size: .67rem; letter-spacing: .12em; text-transform: uppercase; text-align: center; margin-top: .1rem; }
+    .gift-glint { position: absolute; color: #E8CD8F; text-shadow: 0 0 12px rgba(232,205,143,.45); }
+    .gift-glint-one { top: 23%; left: 17%; font-size: 1.15rem; animation: giftTwinkle 2.7s ease-in-out infinite; }
+    .gift-glint-two { right: 17%; bottom: 25%; font-size: 1.5rem; animation: giftTwinkle 2.7s ease-in-out .8s infinite; }
+    @keyframes giftTwinkle { 0%,100% { opacity: .45; transform: scale(.85) rotate(0deg); } 50% { opacity: 1; transform: scale(1.15) rotate(12deg); } }
+    .gift-product .product-card-link { display: none; }
+    .gift-product.is-open .gift-cover { display: none; }
+    .gift-product.is-open .product-card-link { display: block; animation: giftReveal .48s cubic-bezier(.2,.75,.25,1) both; }
+    @keyframes giftReveal { from { opacity: 0; transform: translateY(12px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @media (prefers-reduced-motion: reduce) { .gift-cover, .gift-glint-one, .gift-glint-two, .gift-product.is-open .product-card-link { animation: none !important; transition: none !important; } }
+    @media (max-width: 480px) { .gift-box { transform: scale(.92); margin: .1rem 0; } .gift-cover { min-height: 330px; } }
+
     .product-card-link { display: block; min-width: 0; color: inherit; text-decoration: none; outline-offset: 4px; }
     .product-card-link:focus-visible { outline: 2px solid var(--color-gold-dark); }
     .product-card {
@@ -934,7 +971,16 @@
         <p class="subsection-description">Piezas para expresar tu personalidad y elevar tus looks cotidianos.</p>
       </div>
       <div class="products-grid">
-      <a class="product-card-link" href="productos/producto-03.html" aria-label="Ver detalles de Collar de dinosaurio con corazón luminoso">
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Collar de dinosaurio con corazón luminoso">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-03.html" aria-label="Ver detalles de Collar de dinosaurio con corazón luminoso">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -958,7 +1004,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-08.html" aria-label="Ver detalles de Collar de tulipán primaveral dorado">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Collar de tulipán primaveral dorado">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-08.html" aria-label="Ver detalles de Collar de tulipán primaveral dorado">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -982,7 +1038,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-09.html" aria-label="Ver detalles de Collar de tulipán ligero">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Collar de tulipán ligero">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-09.html" aria-label="Ver detalles de Collar de tulipán ligero">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1006,7 +1072,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-11.html" aria-label="Ver detalles de Pulsera de flor de cerezo">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Pulsera de flor de cerezo">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-11.html" aria-label="Ver detalles de Pulsera de flor de cerezo">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1030,7 +1106,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-12.html" aria-label="Ver detalles de Reloj de cuarzo y pulsera de hoja">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Reloj de cuarzo y pulsera de hoja">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-12.html" aria-label="Ver detalles de Reloj de cuarzo y pulsera de hoja">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1055,7 +1141,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-13.html" aria-label="Ver detalles de Pulsera de trebol de 4 hojas">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Pulsera de trebol de 4 hojas">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-13.html" aria-label="Ver detalles de Pulsera de trebol de 4 hojas">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1079,7 +1175,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-14.html" aria-label="Ver detalles de Pulsera de trebol dorada">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Pulsera de trebol dorada">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-14.html" aria-label="Ver detalles de Pulsera de trebol dorada">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1103,7 +1209,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-15.html" aria-label="Ver detalles de Collar de cruz dorado">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Collar de cruz dorado">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-15.html" aria-label="Ver detalles de Collar de cruz dorado">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1127,7 +1243,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-16.html" aria-label="Ver detalles de Pulsera de mariposas doradas">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Pulsera de mariposas doradas">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-16.html" aria-label="Ver detalles de Pulsera de mariposas doradas">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1151,7 +1277,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-18.html" aria-label="Ver detalles de Collar y aretes de mariposa blanca">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Collar y aretes de mariposa blanca">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-18.html" aria-label="Ver detalles de Collar y aretes de mariposa blanca">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1176,7 +1312,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-25.html" aria-label="Ver detalles de Pulsera bohemia de girasol">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Pulsera bohemia de girasol">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-25.html" aria-label="Ver detalles de Pulsera bohemia de girasol">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1200,7 +1346,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-26.html" aria-label="Ver detalles de Nombre del producto 26">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Nombre del producto 26">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-26.html" aria-label="Ver detalles de Nombre del producto 26">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1224,7 +1380,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-29.html" aria-label="Ver detalles de Pulsera de dinosaurio y corazón luminoso">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Pulsera de dinosaurio y corazón luminoso">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-29.html" aria-label="Ver detalles de Pulsera de dinosaurio y corazón luminoso">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1248,7 +1414,17 @@
           </div>
       </article>
       </a>
-      <a class="product-card-link" href="productos/producto-31.html" aria-label="Ver detalles de Pulsera bohemia de tortuguita">
+      </div>
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Pulsera bohemia de tortuguita">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-31.html" aria-label="Ver detalles de Pulsera bohemia de tortuguita">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1273,7 +1449,16 @@
       </article>
       </a>
       </div>
-          <a class="product-card-link" href="productos/producto-23.html" aria-label="Ver detalles de Nombre del producto 23">
+      <div class="gift-product">
+        <button class="gift-cover" type="button" aria-expanded="false" aria-label="Abrir regalo y descubrir Nombre del producto 23">
+          <span class="gift-glint gift-glint-one" aria-hidden="true">✦</span>
+          <span class="gift-glint gift-glint-two" aria-hidden="true">✧</span>
+          <span class="gift-kicker">CARPAÑO · PARA MÍ</span>
+          <span class="gift-box" aria-hidden="true"><span class="gift-lid"></span><span class="gift-ribbon"></span><span class="gift-bow gift-bow-left"></span><span class="gift-bow gift-bow-right"></span><span class="gift-knot"></span></span>
+          <span class="gift-message">Un detalle para ti</span>
+          <span class="gift-hint">Toca para descubrir</span>
+        </button>
+        <a class="product-card-link" href="productos/producto-23.html" aria-label="Ver detalles de Nombre del producto 23">
       <article class="product-card fade-in">
         <div class="product-images">
           <div class="product-img">
@@ -1297,6 +1482,7 @@
           </div>
       </article>
       </a>
+      </div>
 </section>
   </div>
 </section>
@@ -1371,6 +1557,17 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  document.querySelectorAll('.gift-cover').forEach(button => {
+    button.addEventListener('click', () => {
+      const gift = button.closest('.gift-product');
+      if (!gift) return;
+      gift.classList.add('is-open');
+      button.setAttribute('aria-expanded', 'true');
+      const card = gift.querySelector('.product-card');
+      if (card) card.classList.add('visible');
+    });
+  });
+
 
   // Diez ondas doradas en la portada: parallax suave al desplazarse y movimiento continuo.
   {
