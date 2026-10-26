@@ -72,7 +72,33 @@
       .foot { padding:1.3rem .8rem; font-size:.58rem; }
     }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .btn { transition:none; } }
-  </style>
+  
+/* Ajustes responsivos globales reforzados para todos los móviles */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+img,svg,video,iframe{max-width:100%}
+@media screen and (max-width:760px){
+  *,*::before,*::after{min-width:0}
+  .detail-grid,.grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%;gap:1.35rem!important}
+  .page{width:100%;max-width:100%;padding:1.25rem 1rem 2.5rem!important}
+  .photo-frame,.photo{width:100%!important;max-width:100%!important;margin:0 auto!important;padding:.4rem!important}
+  .photo-frame img,.photo img{display:block;width:100%!important;max-width:100%!important;height:auto!important;aspect-ratio:1/1;object-fit:contain}
+  .detail-info,.grid>section{width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere;word-break:normal}
+  h1{font-size:clamp(1.5rem,7vw,2.15rem)!important;line-height:1.25;overflow-wrap:anywhere}
+  .description,.desc,.note,.includes li,.spec-list dt,.spec-list dd{overflow-wrap:anywhere}
+  .nav{width:100%;max-width:100%;padding:.8rem 1rem!important;gap:.65rem;flex-wrap:wrap}
+  .brand{font-size:clamp(.72rem,3.5vw,.85rem)!important;letter-spacing:.08em;max-width:100%}
+  .back,.nav a.back{font-size:.62rem;letter-spacing:.035em;max-width:100%;overflow-wrap:anywhere}
+  .actions{display:flex;flex-direction:column;gap:.65rem;width:100%}
+  .actions .btn,.btn{display:flex;align-items:center;justify-content:center;width:100%;max-width:100%;min-width:0;margin:.35rem 0;padding:.85rem .75rem;font-size:.66rem;letter-spacing:.05em;text-align:center;white-space:normal;overflow-wrap:anywhere}
+  .spec-list>div{grid-template-columns:minmax(5.3rem,.85fr) minmax(0,1.15fr);gap:.5rem}
+  footer,.foot{width:100%;max-width:100%;padding:1.2rem .75rem;font-size:.58rem;overflow-wrap:anywhere}
+}
+@media screen and (max-width:380px){
+  .page{padding-left:.75rem!important;padding-right:.75rem!important}
+  .spec-list>div{grid-template-columns:minmax(4.7rem,.9fr) minmax(0,1.1fr);gap:.4rem}
+  .brand{letter-spacing:.04em}
+}
+</style>
 </head>
 <body>
   <header class="nav">
