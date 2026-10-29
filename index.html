@@ -567,6 +567,22 @@
   .gift-message{font-size:1rem!important}
 }
 
+
+/* Experiencia Carpaño: valor añadido digital sin costes de materiales */
+.carpano-experience{padding:4.5rem 1.5rem;background:linear-gradient(180deg,#f5f0e7 0%,#fbf9f5 100%);border-top:1px solid rgba(197,160,89,.24);border-bottom:1px solid rgba(197,160,89,.24)}
+.carpano-experience-inner{max-width:1100px;margin:0 auto}
+.carpano-experience .section-label{text-align:center}
+.carpano-experience h2{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.25rem);font-weight:400;letter-spacing:.08em;text-align:center;margin:.5rem 0 1rem}
+.carpano-experience .experience-intro{max-width:690px;margin:0 auto 2rem;text-align:center;color:var(--color-gray);font-size:.92rem}
+.experience-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+.experience-item{padding:1.4rem 1.15rem;background:rgba(255,255,255,.72);border:1px solid rgba(197,160,89,.32);text-align:center}
+.experience-icon{display:block;font-size:1.35rem;color:var(--color-gold-dark);margin-bottom:.65rem}
+.experience-item h3{font-family:var(--font-heading);font-size:1.08rem;font-weight:500;margin-bottom:.45rem}
+.experience-item p{font-size:.78rem;line-height:1.7;color:var(--color-gray)}
+.experience-shipping{display:block;text-align:center;margin-top:1.8rem;color:var(--color-gold-dark);font-size:.78rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+@media(max-width:760px){.carpano-experience{padding:3rem 1rem}.experience-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}.experience-item{padding:1.1rem .75rem}.experience-item h3{font-size:1rem}.experience-item p{font-size:.74rem}}
+@media(max-width:380px){.experience-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -1523,7 +1539,23 @@
   </div>
 </section>
 
-<section class="contact-section" id="contacto">
+
+    <section class="carpano-experience" id="experiencia" aria-labelledby="experience-title">
+      <div class="carpano-experience-inner">
+        <p class="section-label">Más que una joya</p>
+        <h2 id="experience-title">Tu experiencia Carpaño</h2>
+        <p class="experience-intro">Cada pedido puede convertirse en algo más personal. Incluimos detalles digitales que puedes guardar, compartir y volver a consultar, sin añadir objetos desechables ni cargos extra.</p>
+        <div class="experience-grid">
+          <article class="experience-item"><span class="experience-icon" aria-hidden="true">✧</span><h3>Tarjeta personalizada</h3><p>Una tarjeta digital con tu nombre, una dedicatoria o un mensaje para esa persona especial.</p></article>
+          <article class="experience-item"><span class="experience-icon" aria-hidden="true">◇</span><h3>Guía de cuidado</h3><p>Consejos sencillos para conservar tus accesorios y mantenerlos presentables por más tiempo.</p></article>
+          <article class="experience-item"><span class="experience-icon" aria-hidden="true">✦</span><h3>Ideas para combinar</h3><p>Inspiración para crear distintos looks con la pieza que elegiste y los accesorios que ya tienes.</p></article>
+          <article class="experience-item"><span class="experience-icon" aria-hidden="true">◈</span><h3>Tu colección</h3><p>Un registro digital personal para recordar las piezas de Carpaño que has ido reuniendo.</p></article>
+        </div>
+        <span class="experience-shipping">✦ Envío gratis siempre en El Salvador ✦</span>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contacto">
   <div class="section">
     <div class="section-header fade-in">
       <p class="section-label">Estamos para ti</p>
@@ -1693,7 +1725,9 @@
           const relativeX = x - width * 0.5 - cursorOffsetX;
           const direction = index % 2 ? -1 : 1;
           const drift = Math.sin(relativeX * 0.0015 + phase * 0.55 + layer * 0.45) * 13;
-          const y = baseY + cursorOffsetY + Math.sin(relativeX * wavelength + phase * direction + layer * 0.28) * amplitude + drift;
+          const swell = Math.sin(relativeX * wavelength + phase * direction + layer * 0.31 + Math.sin(relativeX * 0.00115 + phase * 0.34 + index * 0.37) * 0.72);
+          const secondary = Math.sin(relativeX * (wavelength * 1.73) - phase * 0.58 + index * 0.91) * 0.22;
+          const y = baseY + cursorOffsetY + swell * amplitude * 0.78 + secondary * amplitude + drift;
           points.push([x, y]);
         }
         let d = `M ${points[0][0]} ${points[0][1]}`;
