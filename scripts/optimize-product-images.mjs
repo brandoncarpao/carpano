@@ -32,7 +32,6 @@ for (const webpName of names) {
       fit: "contain",
       position: "centre",
       background: { r: 240, g: 235, b: 227, alpha: 1 },
-      withoutEnlargement: true
     })
     .toColourspace("srgb")
     .modulate({ brightness: 1.01, saturation: 1.035 })
@@ -72,7 +71,7 @@ for (const file of htmlFiles) {
   let after = before.replace(/(assets\/js\/[^"'?#]+)\.jpe?g/gi, "$1.webp");
   after = after.replace(/width="600"\s+height="600"/g, 'width="600" height="750"');
   if (!after.includes("aspect-ratio:4/5")) {
-    after = after.replace("</head>", '<style> .product-img,.product-card img,.photo img,.photo-frame img{aspect-ratio:4/5;object-fit:contain} </style>\\n</head>');
+    after = after.replace("</head>", '<style> .product-img,.product-card img,.photo img,.photo-frame img{aspect-ratio:4/5;object-fit:contain} </style></head>');
   }
   if (after !== before) {
     await fs.writeFile(file, after);
