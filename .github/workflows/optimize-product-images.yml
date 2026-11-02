@@ -1,4 +1,4 @@
-name: Optimize Carpaño product images
+name: Optimize and prepare Carpaño product images
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
       - "assets/js/**.jpg"
       - "assets/js/**.jpeg"
       - "scripts/optimize-product-images.mjs"
+      - "scripts/remove-product-backgrounds.py"
       - ".github/workflows/optimize-product-images.yml"
   workflow_dispatch:
 
@@ -31,13 +32,24 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install image processor
-        run: npm install --no-save sharp
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-      - name: Convert and optimize product images
+      - name: Install image processors
+        run: |
+          npm install --no-save sharp
+          python -m pip install --upgrade pip
+          python -m pip install "rembg[cpu]" pillow
+
+      - name: Convert and optimize source photos
         run: node scripts/optimize-product-images.mjs
 
-      - name: Commit optimized images and updated references
+      - name: Remove backgrounds and standardize composition
+        run: python scripts/remove-product-backgrounds.py
+
+      - name: Commit prepared images and updated references
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -45,6 +57,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No generated changes to commit."
           else
-            git commit -m "Optimize product images and use WebP"
+            git commit -m "Remove product photo backgrounds and refine composition"
             git push origin HEAD:main
           fi
