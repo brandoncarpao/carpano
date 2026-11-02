@@ -4,14 +4,14 @@ import sharp from "sharp";
 
 const root = process.cwd();
 const imageDir = path.join(root, "assets", "js");
-const imageNames = (await fs.readdir(imageDir)).filter((name) => /\\.jpe?g$/i.test(name));
+const imageNames = (await fs.readdir(imageDir)).filter((name) => /\.jpe?g$/i.test(name));
 let originalBytes = 0;
 let optimizedBytes = 0;
 let converted = 0;
 
 for (const name of imageNames) {
   const inputPath = path.join(imageDir, name);
-  const outputPath = path.join(imageDir, name.replace(/\\.jpe?g$/i, ".webp"));
+  const outputPath = path.join(imageDir, name.replace(/\.jpe?g$/i, ".webp"));
   const input = await fs.readFile(inputPath);
   originalBytes += input.byteLength;
 
@@ -44,7 +44,7 @@ const htmlFiles = await walk(root);
 let htmlUpdated = 0;
 for (const file of htmlFiles) {
   const before = await fs.readFile(file, "utf8");
-  const after = before.replace(/(assets\\/js\\/[^"'?#]+)\\.jpe?g/gi, "$1.webp");
+  const after = before.replace(/(assets\/js\/[^"'?#]+)\.jpe?g/gi, "$1.webp");
   if (after !== before) {
     await fs.writeFile(file, after);
     htmlUpdated += 1;
