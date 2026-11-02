@@ -1,0 +1,50 @@
+name: Optimize Carpaño product images
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "assets/js/**.jpg"
+      - "assets/js/**.jpeg"
+      - "scripts/optimize-product-images.mjs"
+      - ".github/workflows/optimize-product-images.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: optimize-carpano-images
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install image processor
+        run: npm install --no-save sharp
+
+      - name: Convert and optimize product images
+        run: node scripts/optimize-product-images.mjs
+
+      - name: Commit optimized images and updated references
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/*.webp index.html productos/*.html
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit."
+          else
+            git commit -m "Optimize product images and use WebP"
+            git push origin HEAD:main
+          fi
