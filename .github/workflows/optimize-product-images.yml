@@ -10,8 +10,9 @@ on:
       - ".github/workflows/optimize-product-images.yml"
   workflow_dispatch:
 
+# The workflow needs write access only to commit generated image references.
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: optimize-carpano-images
@@ -20,24 +21,29 @@ concurrency:
 jobs:
   optimize:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           ref: main
+          persist-credentials: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "20"
 
       - name: Install image processor
-        run: npm install --no-save sharp
+        run: npm install --no-save --package-lock=false sharp@0.34.3
 
       - name: Convert and optimize original product photos
         run: node scripts/optimize-product-images.mjs
 
       - name: Commit optimized images and updated references
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -45,6 +51,5 @@ jobs:
           if git diff --cached --quiet; then
             echo "No generated changes to commit."
           else
-            git commit -m "Restore original product photo backgrounds and optimize WebP"
-            git push origin HEAD:main
+            git -c http.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin HEAD:main
           fi
