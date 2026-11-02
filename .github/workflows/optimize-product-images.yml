@@ -10,7 +10,6 @@ on:
       - ".github/workflows/optimize-product-images.yml"
   workflow_dispatch:
 
-# The workflow needs write access only to commit generated image references.
 permissions:
   contents: read
 
@@ -46,10 +45,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+users.noreply.github.com"
           git add assets/js/*.webp index.html productos/*.html
           if git diff --cached --quiet; then
             echo "No generated changes to commit."
           else
+            git commit -m "Optimize product images"
             git -c http.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin HEAD:main
           fi
