@@ -245,6 +245,9 @@
     @media (prefers-reduced-motion: reduce) { .gift-cover, .gift-glint-one, .gift-glint-two, .gift-product.is-open .product-card-link { animation: none !important; transition: none !important; } }
     @media (max-width: 480px) { .gift-cover { padding: 1.1rem .65rem; gap: .7rem; } .jewel-emblem { transform: scale(.9); margin: .4rem 0; } .gift-kicker { font-size: .55rem; letter-spacing: .15em; } .gift-message { font-size: 1.05rem; } .gift-hint { font-size: .58rem; letter-spacing: .08em; } }
 
+    .gift-product.is-archived .gift-cover { display: none; }
+    .gift-product.is-archived .product-card-link { display: block; }
+
     .product-card-link { display: block; min-width: 0; color: inherit; text-decoration: none; outline-offset: 4px; }
     .product-card-link:focus-visible { outline: 2px solid var(--color-gold-dark); }
     .product-card {
@@ -1032,6 +1035,15 @@
       </article>
       </a>
       </div>
+    </section>
+
+    <section class="product-subsection" aria-labelledby="sub-mas-regalos">
+      <div class="subsection-heading fade-in">
+        <p class="section-label">Más formas de sorprender</p>
+        <h3 class="subsection-title" id="sub-mas-regalos">Más ideas para regalar</h3>
+        <p class="subsection-description">Descubre más accesorios y encuentra un detalle especial para compartir en cualquier ocasión.</p>
+      </div>
+      <div class="products-grid" id="more-gift-products"></div>
     </section>
 
     <section class="product-subsection" aria-labelledby="sub-mimimo">
