@@ -14,19 +14,29 @@ const navbar = document.getElementById('navbar');
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  // Mostrar hasta seis regalos en orden aleatorio en cada recarga.
+  // Mostrar exactamente seis productos de «Para mí» en orden aleatorio
+  // en cada carga. Se ocultan con display !important para evitar que otros
+  // estilos de la cuadrícula anulen el atributo hidden.
   {
-    const giftGrid = document.querySelector('#sub-mimimo')?.closest('.product-subsection')?.querySelector('.products-grid');
+    const section = document.querySelector('#sub-mimimo')?.closest('.product-subsection');
+    const giftGrid = section?.querySelector('.products-grid');
     if (giftGrid) {
-      const gifts = Array.from(giftGrid.querySelectorAll('.gift-product'));
-      for (let i = gifts.length - 1; i > 0; i--) {
+      const products = Array.from(giftGrid.querySelectorAll(':scope > .gift-product'));
+      // Fisher-Yates: mezcla sin sesgo y selecciona seis productos distintos.
+      for (let i = products.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [gifts[i], gifts[j]] = [gifts[j], gifts[i]];
+        [products[i], products[j]] = [products[j], products[i]];
       }
-      gifts.forEach(gift => { gift.hidden = true; });
-      gifts.slice(0, 6).forEach(gift => {
-        gift.hidden = false;
-        giftGrid.appendChild(gift);
+
+      products.forEach(product => {
+        product.style.setProperty('display', 'none', 'important');
+        product.setAttribute('aria-hidden', 'true');
+      });
+
+      products.slice(0, 6).forEach(product => {
+        product.style.removeProperty('display');
+        product.removeAttribute('aria-hidden');
+        giftGrid.appendChild(product);
       });
     }
   }
