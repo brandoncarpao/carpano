@@ -14,34 +14,32 @@ const navbar = document.getElementById('navbar');
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  // Mostrar exactamente seis productos de «Para mí» en orden aleatorio
-  // en cada carga. Se ocultan con display !important para evitar que otros
-  // estilos de la cuadrícula anulen el atributo hidden.
+  // Mantener seis productos aleatorios en «Para mí» y trasladar
+  // el resto a la colección visible «Más ideas para regalar».
   {
     const section = document.querySelector('#sub-mimimo')?.closest('.product-subsection');
     const giftGrid = section?.querySelector('.products-grid');
-    if (giftGrid) {
+    const moreGiftGrid = document.getElementById('more-gift-products');
+    if (giftGrid && moreGiftGrid) {
       const products = Array.from(giftGrid.querySelectorAll(':scope > .gift-product'));
-      // Fisher-Yates: mezcla sin sesgo y selecciona seis productos distintos.
       for (let i = products.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [products[i], products[j]] = [products[j], products[i]];
       }
-
-      products.forEach(product => {
-        product.style.setProperty('display', 'none', 'important');
-        product.setAttribute('aria-hidden', 'true');
-      });
-
-      products.slice(0, 6).forEach(product => {
-        product.style.removeProperty('display');
-        product.removeAttribute('aria-hidden');
-        giftGrid.appendChild(product);
+      products.forEach((product, index) => {
+        if (index < 6) {
+          product.style.removeProperty('display');
+          product.removeAttribute('aria-hidden');
+          giftGrid.appendChild(product);
+        } else {
+          product.classList.add('is-archived');
+          product.removeAttribute('aria-hidden');
+          moreGiftGrid.appendChild(product);
+        }
       });
     }
   }
 
-  
   // Frases variadas en las tarjetas de la colección «Para mí».
   {
     const giftPhrases = ["Una joya para ti","Tu próximo favorito","Un brillo muy tuyo","Pequeños detalles, gran estilo","Elige algo especial","Tu momento de brillar","Un toque de elegancia","Descubre tu sorpresa","Hay algo para ti","Un detalle con encanto","Hazlo parte de tu estilo","Un capricho bonito","Encuentra tu favorito","Un brillo que te acompaña","Algo especial te espera"];
