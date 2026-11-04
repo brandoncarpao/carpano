@@ -14,33 +14,61 @@ const navbar = document.getElementById('navbar');
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  // Mantener seis productos aleatorios en «Para mí» y trasladar
-  // el resto a la colección visible «Más ideas para regalar».
+  // Clasificar primero los cuatro productos para parejas. De los restantes,
+  // mostrar seis aleatorios en «Para mí» y llevar los demás a «Más ideas para regalar».
   {
-    const section = document.querySelector('#sub-mimimo')?.closest('.product-subsection');
-    const giftGrid = section?.querySelector('.products-grid');
+    const personalSection = document.querySelector('#sub-mimimo')?.closest('.product-subsection');
+    const personalGrid = personalSection?.querySelector('.products-grid');
+    const couplesSection = document.querySelector('#sub-parejas')?.closest('.product-subsection');
+    const couplesGrid = couplesSection?.querySelector('.products-grid');
     const moreGiftGrid = document.getElementById('more-gift-products');
-    if (giftGrid && moreGiftGrid) {
-      const products = Array.from(giftGrid.querySelectorAll(':scope > .gift-product'));
-      for (let i = products.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [products[i], products[j]] = [products[j], products[i]];
-      }
-      products.forEach((product, index) => {
-        if (index < 6) {
-          product.style.removeProperty('display');
+
+    if (personalGrid && couplesGrid && moreGiftGrid) {
+      const products = Array.from(personalGrid.querySelectorAll(':scope > .gift-product'));
+      const couplesProductPaths = new Set([
+        'productos/producto-03.html',
+        'productos/producto-26.html',
+        'productos/producto-23.html',
+        'productos/producto-29.html'
+      ]);
+
+      const remainingProducts = [];
+      products.forEach(product => {
+        const link = product.querySelector('.product-card-link');
+        const path = link?.getAttribute('href');
+        if (couplesProductPaths.has(path)) {
+          product.classList.add('is-archived');
+          product.classList.remove('is-open');
+          const cover = product.querySelector('.gift-cover');
+          if (cover) cover.setAttribute('aria-expanded', 'false');
           product.removeAttribute('aria-hidden');
-          giftGrid.appendChild(product);
+          couplesGrid.appendChild(product);
+        } else {
+          remainingProducts.push(product);
+        }
+      });
+
+      // Mezcla Fisher-Yates: la colección «Para mí» siempre conserva seis.
+      for (let i = remainingProducts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [remainingProducts[i], remainingProducts[j]] = [remainingProducts[j], remainingProducts[i]];
+      }
+
+      remainingProducts.forEach((product, index) => {
+        product.classList.remove('is-archived');
+        product.style.removeProperty('display');
+        product.removeAttribute('aria-hidden');
+        if (index < 6) {
+          personalGrid.appendChild(product);
         } else {
           product.classList.add('is-archived');
-          product.removeAttribute('aria-hidden');
           moreGiftGrid.appendChild(product);
         }
       });
     }
   }
 
-  // Frases variadas en las tarjetas de la colección «Para mí».
+    // Frases variadas en las tarjetas de la colección «Para mí».
   {
     const giftPhrases = ["Una joya para ti","Tu próximo favorito","Un brillo muy tuyo","Pequeños detalles, gran estilo","Elige algo especial","Tu momento de brillar","Un toque de elegancia","Descubre tu sorpresa","Hay algo para ti","Un detalle con encanto","Hazlo parte de tu estilo","Un capricho bonito","Encuentra tu favorito","Un brillo que te acompaña","Algo especial te espera"];
     document.querySelectorAll('.gift-cover .gift-message').forEach((message, index) => {
