@@ -4,6 +4,25 @@ import sharp from "sharp";
 
 const root = process.cwd();
 const imageDir = path.join(root, "assets", "js");
+
+const topLevelEntries = await fs.readdir(root);
+const rootProductPngs = topLevelEntries.filter((name) => /\.png$/i.test(name) && !/^C_(?:horizontal|sin borde)\.png$/i.test(name));
+const aliases = new Map([
+  ["collar de cruz dorado.png", "Collar de cruz dorada.webp"]
+]);
+const normalize = (value) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+const existingWebps = await fs.readdir(imageDir);
+for (const sourceName of rootProductPngs) {
+  const explicitTarget = aliases.get(sourceName.toLowerCase());
+  const targetName = explicitTarget || existingWebps.find((name) => name.toLowerCase() === sourceName.replace(/\.png$/i, ".webp").toLowerCase())
+    || existingWebps.find((name) => normalize(name) === normalize(sourceName.replace(/\.png$/i, ".webp")));
+  if (!targetName) {
+    throw new Error(`No matching existing product image found for uploaded file: ${sourceName}. No source file was deleted.`);
+  }
+  const destination = path.join(imageDir, targetName.replace(/\.webp$/i, ".png"));
+  await fs.rename(path.join(root, sourceName), destination);
+}
+
 const entries = await fs.readdir(imageDir);
 const webpNames = entries.filter((name) => /\.webp$/i.test(name));
 const pngNames = entries.filter((name) => /\.png$/i.test(name));
